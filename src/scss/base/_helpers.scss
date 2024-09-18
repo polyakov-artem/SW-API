@@ -1,0 +1,31 @@
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--default-padding);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hidden {
+  display: block;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.body-locked {
+  height: 100%;
+  overflow: hidden;
+}
+
+.label {
+  display: inline-block;
+}

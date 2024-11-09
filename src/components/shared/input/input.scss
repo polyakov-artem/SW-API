@@ -1,0 +1,107 @@
+.input {
+  --input-primary-color: #212529;
+  --input-primary-bg-color: #fff;
+  --input-primary-border-color: #dee2e6;
+
+  --input-primary-focus-border-color: #86b7fe;
+  --input-primary-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+
+  --input-primary-disabled-bg-color: #e9ecef;
+
+  --input-primary-placeholder-color: rgba(33, 37, 41, 0.75);
+  --input-primary-invalid-border-color: red;
+}
+
+.input {
+  position: relative;
+  display: flex;
+}
+
+.input__control:disabled {
+  cursor: default;
+  box-shadow: none;
+}
+
+.input__control {
+  display: block;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  width: 100%;
+  outline: 0;
+  transition:
+    0.2s ease color,
+    0.2s ease box-shadow,
+    0.2s ease background-color;
+}
+
+.input__icon {
+  display: inline-flex;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.input_icon-after {
+  .input__icon {
+    right: 0;
+  }
+}
+
+.input_icon-before {
+  .input__icon {
+    left: 0;
+  }
+}
+
+.input_view_primary {
+  min-height: 2rem;
+
+  .input__control {
+    padding: 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--input-primary-color);
+    background-color: var(--input-primary-bg-color);
+    border: 1px solid var(--input-primary-border-color);
+    border-radius: 5px;
+
+    &:placeholder {
+      color: var(--input-primary-placeholder-color);
+    }
+  }
+
+  &.input_icon-after {
+    .input__control {
+      padding-right: 2rem;
+    }
+
+    .input__icon {
+      right: 10px;
+    }
+  }
+
+  &.input_icon-before {
+    .input__control {
+      padding-left: 2rem;
+    }
+  }
+
+  & .input__control:focus {
+    border-color: var(--input-primary-focus-border-color);
+    box-shadow: var(--input-primary-focus-box-shadow);
+  }
+
+  & .input__control:disabled {
+    background-color: var(--input-primary-disabled-bg-color);
+  }
+}
+
+.input.input_invalid .input__control {
+  border-color: var(--input-primary-invalid-border-color);
+}

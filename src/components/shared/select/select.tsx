@@ -8,6 +8,8 @@ const BASE_CLASS_NAME = 'select';
 const selectControlClassName = `${BASE_CLASS_NAME}__control`;
 const selectOptionClassName = `${BASE_CLASS_NAME}__option`;
 
+export type OptionsType = Array<{ label: string; value: string }>;
+
 export interface SelectPropsType {
   disabled?: boolean;
   invalid?: boolean;
@@ -17,7 +19,7 @@ export interface SelectPropsType {
   className?: string;
   state?: 'idle' | 'loading';
   loadingText?: string;
-  options?: { label: string; value: string }[];
+  options: OptionsType;
 }
 
 type SelectComponentProps = SelectPropsType & ComponentProps<'select'>;
@@ -49,7 +51,7 @@ const Select: FC<SelectComponentProps> = (props) => {
     mix: className,
   });
 
-  const optionsArray = options?.map((option) => (
+  const optionsArray = options.map((option) => (
     <option key={option.value} className={selectOptionClassName} value={option.value}>
       {option.label}
     </option>

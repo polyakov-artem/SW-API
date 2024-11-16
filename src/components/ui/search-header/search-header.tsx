@@ -28,7 +28,12 @@ class SearchHeader extends Component<SearchHeaderPropsType, SearchHeaderStateTyp
 
   handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;
-    this.setState((prevState) => ({ ...prevState, [name]: value }));
+    this.setState((prevState) => {
+      if (name === 'category') {
+        return { search: '', [name]: value as SwCategory };
+      }
+      return { ...prevState, [name]: value };
+    });
   };
 
   handleSubmit: SubmitHandlerType = (e) => {

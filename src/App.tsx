@@ -5,6 +5,7 @@ import { selectOptions } from './constants/constants';
 import { SwCategory } from './enums/enums';
 import { loadSavedSearch } from './utils/load-saved-search';
 import { SavedSearchType } from './types/types';
+import SearchResults from './components/ui/search-results/search-results';
 
 interface SearchStateType {
   search: string;
@@ -38,12 +39,13 @@ class App extends Component<PropsWithChildren, SearchStateType> {
           </div>
         </header>
         <main className="page__main">
-          <div className="container">
+          <div className="page__search container">
             <SearchHeader
               options={selectOptions}
               initialCategory={category}
               initialSearch={search}
             />
+            <SearchResults />
           </div>
         </main>
       </div>

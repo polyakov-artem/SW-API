@@ -29,6 +29,7 @@ export type EndpointsResponsesType = {
 };
 
 export type CorrectResponseDataType = EndpointsResponsesType[SwCategory];
+export type CorrectResponseResultsType = CorrectResponseDataType['results'];
 
 export interface ManType {
   name: string;

@@ -1,0 +1,22 @@
+.search-header {
+}
+
+.search-header {
+  padding: 20px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+
+  &__heading {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  &__field {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__input {
+    flex: 1 1 0;
+  }
+}

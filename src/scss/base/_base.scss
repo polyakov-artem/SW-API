@@ -1,5 +1,5 @@
 :root,
-[theme="light"] {
+[theme='light'] {
   --page-bg-color: var(--white);
   --page-color: var(--black);
 }
@@ -26,11 +26,26 @@ body {
   min-width: var(--page-min-width);
   background-color: var(--page-bg-color);
   color: var(--page-color);
-  font-family: "Roboto", var(--font-family-sans-serif);
+  font-family: 'Roboto', var(--font-family-sans-serif);
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   line-height: 150%;
   overflow-x: hidden;
   background-size: cover;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  gap: 10px;
+
+  &__header {
+    flex: 0 0 auto;
+  }
+
+  &__main {
+    flex: 1 1 auto;
+  }
 }

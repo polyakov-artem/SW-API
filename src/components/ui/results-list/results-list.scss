@@ -1,0 +1,11 @@
+.results-list {
+  list-style: none;
+  padding: 0;
+
+  &__item {
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    border: 1px solid #ccc;
+  }
+}

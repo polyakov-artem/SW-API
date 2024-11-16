@@ -1,26 +1,29 @@
-import { ChangeEvent, Component, ReactNode } from 'react';
+import { ChangeEvent, Component } from 'react';
 import Select, { OptionsType } from '../../shared/select/select';
 import Input from '../../shared/input/input';
 import Button from '../../shared/button/button';
 import SvgIcon from '../../shared/svg-icon/svg-icon';
 import { SubmitHandlerType } from '../../../types/types';
 import './search-header.scss';
+import { SwCategory } from '../../../enums/enums';
 
 interface SearchHeaderPropsType {
   options: OptionsType;
-  children?: ReactNode;
-  initialCategory?: string;
-  initialSearch?: string;
-  onSubmit?: (category: string, search: string) => void;
+  initialCategory: SwCategory;
+  initialSearch: string;
+  onSubmit?: (category: SwCategory, search: string) => void;
 }
 
 interface SearchHeaderStateType {
   search: string;
-  category: string;
+  category: SwCategory;
 }
 
 class SearchHeader extends Component<SearchHeaderPropsType, SearchHeaderStateType> {
-  state = { search: this.props.initialSearch || '', category: this.props.initialCategory || '' };
+  state = {
+    search: this.props.initialSearch,
+    category: this.props.initialCategory,
+  };
 
   handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;

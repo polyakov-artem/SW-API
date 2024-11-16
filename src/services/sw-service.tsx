@@ -1,5 +1,6 @@
-import { EndpointsResponsesType } from '../types/types';
+import { EndpointsResponsesType, SavedSearchType } from '../types/types';
 import httpService from './http-service';
+import localStorageService from './local-storage-service';
 
 type SearchParamsType<T> = {
   category: T;
@@ -24,8 +25,14 @@ async function search<T extends keyof EndpointsResponsesType>({
   return response;
 }
 
+const saveSearch = ({ category, search }: SavedSearchType) => {
+  localStorageService.saveData('category', category);
+  localStorageService.saveData('search', search);
+};
+
 const swService = {
   search,
+  saveSearch,
 };
 
 export default swService;

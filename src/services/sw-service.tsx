@@ -22,7 +22,7 @@ async function search<T extends keyof EndpointsResponsesType>({
     },
     signal,
   });
-  return response;
+  return response.data;
 }
 
 const saveSearch = ({ category, search }: SavedSearchType) => {

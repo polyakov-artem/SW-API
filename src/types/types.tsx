@@ -7,6 +7,11 @@ export type InputChangeHandlerType = NonNullable<ComponentProps<'input'>['onChan
 export type SelectChangeHandlerType = NonNullable<ComponentProps<'select'>['onChange']>;
 export type SubmitHandlerType = NonNullable<ComponentProps<'form'>['onSubmit']>;
 
+export type SavedSearchType = {
+  search: string;
+  category: SwCategory;
+};
+
 export type ResponseDataType<T> = {
   count: number;
   next: string;

@@ -3,15 +3,16 @@ import Select, { OptionsType } from '../../shared/select/select';
 import Input from '../../shared/input/input';
 import Button from '../../shared/button/button';
 import SvgIcon from '../../shared/svg-icon/svg-icon';
-import { SubmitHandlerType } from '../../../types/types';
+import { SavedSearchType, SubmitHandlerType } from '../../../types/types';
 import './search-header.scss';
 import { SwCategory } from '../../../enums/enums';
+import swService from '../../../services/sw-service';
 
 interface SearchHeaderPropsType {
   options: OptionsType;
   initialCategory: SwCategory;
   initialSearch: string;
-  onSubmit?: (category: SwCategory, search: string) => void;
+  onSubmit?: (searchState: SavedSearchType) => void;
 }
 
 interface SearchHeaderStateType {
@@ -32,7 +33,12 @@ class SearchHeader extends Component<SearchHeaderPropsType, SearchHeaderStateTyp
 
   handleSubmit: SubmitHandlerType = (e) => {
     e.preventDefault();
-    this.props?.onSubmit?.(this.state.category, this.state.search);
+    const { search, category } = this.state;
+    const trimmedSearch = search.trim();
+    const nextState = { search: trimmedSearch, category };
+    this.setState(nextState);
+    swService.saveSearch(nextState);
+    this.props.onSubmit?.(nextState);
   };
 
   render() {

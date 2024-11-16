@@ -28,6 +28,8 @@ export type EndpointsResponsesType = {
   [SwCategory.vehicles]: ResponseDataType<VehicleType>;
 };
 
+export type CorrectResponseDataType = EndpointsResponsesType[SwCategory];
+
 export interface ManType {
   name: string;
   birth_year: string;

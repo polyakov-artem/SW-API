@@ -3,12 +3,13 @@ import { Size } from '../../../types/types';
 
 import './select.scss';
 import { getClassNames } from '../../../utils/getClassNames';
+import { SwCategory } from '../../../enums/enums';
 
 const BASE_CLASS_NAME = 'select';
 const selectControlClassName = `${BASE_CLASS_NAME}__control`;
 const selectOptionClassName = `${BASE_CLASS_NAME}__option`;
 
-export type OptionsType = Array<{ label: string; value: string }>;
+export type OptionsType = Array<{ label: string; value: SwCategory }>;
 
 export interface SelectPropsType {
   disabled?: boolean;

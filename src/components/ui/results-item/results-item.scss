@@ -1,0 +1,14 @@
+.results-item {
+  &__link {
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: black;
+  }
+
+  &__link:hover {
+    color: rgb(255, 81, 0);
+  }
+}

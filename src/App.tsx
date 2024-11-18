@@ -1,8 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ErrorComponent from './components/ui/error-component/error-component';
 import { loadSavedSearch } from './utils/load-saved-search';
 import { ItemsSearchQueryType } from './types/types';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import useParamsForItemsSearch from './hooks/use-params-for-items-search';
 import Search from './components/ui/search/search';
 
@@ -25,12 +25,16 @@ const getInitialSearchState = (
 const App: FC = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
   const paramsForItemsSearch = useParamsForItemsSearch();
+  const navigate = useNavigate();
 
-  if (isFirstLoading) {
-    const { search, category, page } = getInitialSearchState(paramsForItemsSearch);
-    setIsFirstLoading(false);
-    return <Navigate to={`/${category}/?search=${search}&page=${page}`} />;
-  }
+  useEffect(() => {
+    if (isFirstLoading) {
+      const { search, category, page } = getInitialSearchState(paramsForItemsSearch);
+      navigate(`/${category}/?search=${search}&page=${page}`);
+
+      setIsFirstLoading(false);
+    }
+  }, [navigate, paramsForItemsSearch, isFirstLoading]);
 
   return (
     <div className="page">

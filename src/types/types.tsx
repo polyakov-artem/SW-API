@@ -27,12 +27,16 @@ export type ResponseDataType<T> = {
 };
 
 export type EndpointsResponsesType = {
-  [SwCategory.films]: ResponseDataType<FilmType>;
-  [SwCategory.people]: ResponseDataType<ManType>;
-  [SwCategory.planets]: ResponseDataType<PlanetType>;
-  [SwCategory.species]: ResponseDataType<SpeciesType>;
-  [SwCategory.starships]: ResponseDataType<StarshipType>;
-  [SwCategory.vehicles]: ResponseDataType<VehicleType>;
+  [Category in SwCategory]: ResponseDataType<CategoryItemType[Category]>;
+};
+
+export type CategoryItemType = {
+  [SwCategory.films]: FilmType;
+  [SwCategory.people]: ManType;
+  [SwCategory.planets]: PlanetType;
+  [SwCategory.species]: SpeciesType;
+  [SwCategory.starships]: StarshipType;
+  [SwCategory.vehicles]: VehicleType;
 };
 
 export type CorrectResponseDataType = EndpointsResponsesType[SwCategory];

@@ -14,6 +14,7 @@ interface SearchHeaderPropsType {
   initialCategory: SwCategory;
   initialSearch: string;
   onSubmit?: () => void;
+  className?: string;
 }
 
 const SearchHeader: FC<SearchHeaderPropsType> = ({
@@ -21,6 +22,7 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
   initialCategory,
   initialSearch,
   onSubmit,
+  className,
 }) => {
   const [state, setState] = useState<SavedSearchType>({
     search: initialSearch || '',
@@ -59,7 +61,7 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
   const { category, search } = state;
 
   return (
-    <div className="search-header">
+    <div className={`search-header${className ? ' ' + className : ''}`}>
       <h1 className="search-header__heading">Enter your search request</h1>
       <form className="search-header__field" onSubmit={handleSubmit}>
         <Select

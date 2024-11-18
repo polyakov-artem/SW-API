@@ -1,3 +1,4 @@
+import './search.scss';
 import { FC, useEffect, useState } from 'react';
 import SearchHeader from '../search-header/search-header';
 import SearchResults from '../search-results/search-results';
@@ -23,8 +24,9 @@ const Search: FC = () => {
   const { search, category } = searchQuery;
 
   return (
-    <>
+    <div className="search container">
       <SearchHeader
+        className="search__search-header"
         options={selectOptions}
         initialCategory={category}
         initialSearch={search}
@@ -32,7 +34,7 @@ const Search: FC = () => {
       />
       <SearchResults {...categoryLoader} searchQuery={searchQuery} />
       <Outlet />
-    </>
+    </div>
   );
 };
 

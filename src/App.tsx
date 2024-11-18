@@ -43,9 +43,7 @@ const App: FC = () => {
           <ErrorComponent />
         </div>
       </header>
-      <main className="page__main">
-        <div className="page__search container">{isFirstLoading ? null : <Search />}</div>
-      </main>
+      <main className="page__main">{isFirstLoading ? null : <Search />}</main>
     </div>
   );
 };

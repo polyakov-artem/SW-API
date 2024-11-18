@@ -40,11 +40,4 @@ body {
   min-height: 100dvh;
   grid-template-rows: auto 1fr;
   gap: 20px;
-
-  &__search {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    gap: 20px;
-    min-height: 100%;
-  }
 }

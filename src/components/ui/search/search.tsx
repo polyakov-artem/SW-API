@@ -30,7 +30,7 @@ const Search: FC = () => {
         initialSearch={search}
         onSubmit={handleSubmit}
       />
-      <SearchResults {...categoryLoader} category={category} />
+      <SearchResults {...categoryLoader} searchQuery={searchQuery} />
       <Outlet />
     </>
   );

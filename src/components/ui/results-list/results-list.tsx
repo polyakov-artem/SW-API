@@ -1,106 +1,42 @@
-import { FC, PropsWithChildren } from 'react';
-import Film from '../film/film';
-import Man from '../man/man';
-import Planet from '../planet/planet';
-import Species from '../species/species';
-import Starship from '../starship/starship';
-import Vehicle from '../vehicle/vehicle';
+import { FC, useMemo } from 'react';
 import './results-list.scss';
-import {
-  CorrectResponseResultsType,
-  FilmType,
-  ManType,
-  PlanetType,
-  SpeciesType,
-  StarshipType,
-  VehicleType,
-} from '../../../types/types';
-import { SwCategory } from '../../../enums/enums';
+import { CorrectResponseResultsType, ItemsSearchQueryType } from '../../../types/types';
+import ResultsItem from '../results-item/results-item';
 
 type ResultListPropsType = {
-  items: CorrectResponseResultsType | undefined;
-  category: SwCategory;
+  items: CorrectResponseResultsType;
+  searchQuery: ItemsSearchQueryType;
 };
 
-const LIST_CLASS_NAME = 'results-list';
-const LIST_ITEM_CLASS_NAME = 'results-list__item';
+type ItemType = { name: string } | { title: string };
 
-const ResultsList: FC<ResultListPropsType> = ({ items, category }) => {
-  switch (category) {
-    case SwCategory.films:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Film {...(item as FilmType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
+const BASE_CLASS_NAME = 'results-list';
 
-    case SwCategory.people:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Man {...(item as ManType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
-
-    case SwCategory.planets:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Planet {...(item as PlanetType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
-
-    case SwCategory.species:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Species {...(item as SpeciesType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
-
-    case SwCategory.starships:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Starship {...(item as StarshipType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
-
-    case SwCategory.vehicles:
-      return (
-        <List>
-          {items?.map((item) => (
-            <ListItem key={item.url}>
-              <Vehicle {...(item as VehicleType)} />
-            </ListItem>
-          ))}
-        </List>
-      );
+const getTitle = (item: ItemType) => {
+  if ('title' in item) {
+    return item.title;
   }
+
+  return item.name;
 };
 
-const List: FC<PropsWithChildren> = ({ children }) => {
-  return <ul className={LIST_CLASS_NAME}>{children}</ul>;
+const compareFn = (item1: ItemType, item2: ItemType) => {
+  return getTitle(item1).localeCompare(getTitle(item2));
 };
 
-const ListItem: FC<PropsWithChildren> = ({ children }) => {
-  return <li className={LIST_ITEM_CLASS_NAME}>{children}</li>;
+const ResultsList: FC<ResultListPropsType> = ({ items, searchQuery }) => {
+  const sorted = useMemo(() => items.sort(compareFn), [items]);
+
+  return (
+    <ul className={BASE_CLASS_NAME}>
+      {sorted.map((item) => {
+        const title = getTitle(item);
+        return (
+          <ResultsItem key={item.url} title={title} url={item.url} searchQuery={searchQuery} />
+        );
+      })}
+    </ul>
+  );
 };
 
 export default ResultsList;

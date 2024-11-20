@@ -11,7 +11,7 @@ const useParamsForItemsSearch = (): ItemsSearchQueryType => {
 
   const urlParams = useMemo(
     () => ({
-      category: category && category in SwCategory ? (category as SwCategory) : SwCategory.films,
+      category: category as SwCategory,
       search: search || '',
       page: page || '1',
     }),

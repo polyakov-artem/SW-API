@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios';
 export const DEFAULT_MESSAGE = 'Unexpected error';
 export const CANCELED_REQUEST_MESSAGE = 'Request was canceled';
 export const NO_DATA_MESSAGE = 'No data was received from the server';
+export const NOT_FOUND_MESSAGE = 'The requested page was not found';
 
 export type IdleState = { status: LoadingStatus.idle; data: null; error: null };
 export type LoadingState = { status: LoadingStatus.loading; data: null; error: null };
@@ -56,8 +57,13 @@ export async function loadData<DataType>(
     let message = DEFAULT_MESSAGE;
 
     if (e instanceof Error) {
-      if (isAxiosError(e) && e.code === 'ERR_CANCELED') {
-        message = CANCELED_REQUEST_MESSAGE;
+      if (isAxiosError(e)) {
+        if (e.code === 'ERR_CANCELED') {
+          message = CANCELED_REQUEST_MESSAGE;
+        }
+        if (e.status === 404) {
+          message = NOT_FOUND_MESSAGE;
+        }
       } else {
         message = e.message;
       }

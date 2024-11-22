@@ -1,5 +1,6 @@
 import { ComponentProps } from 'react';
 import { SwCategory } from '../enums/enums';
+import { LoaderState } from '../utils/load-data';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 export type ClassModsType = Record<string, string | boolean | undefined>;
@@ -17,6 +18,11 @@ export type ItemsSearchQueryType = {
   category: SwCategory;
   search: string;
   page: string;
+};
+
+export type CategoryLoaderAndSearchQueryType = {
+  searchQuery: ItemsSearchQueryType;
+  categoryLoader: LoaderState<CorrectResponseDataType>;
 };
 
 export type ResponseDataType<T> = {

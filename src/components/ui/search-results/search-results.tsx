@@ -35,7 +35,10 @@ const SearchResults: FC<SearchResultsPropsType> = ({ data, status, error, search
         data?.count && data.results ? (
           <ResultsList items={data.results} searchQuery={searchQuery} />
         ) : (
-          <h2>No items was found in category "{capitalizeWord(searchQuery.category)}"</h2>
+          <h2>
+            No results were found for the "{searchQuery.search}" query in the "
+            {capitalizeWord(searchQuery.category)}" category
+          </h2>
         ),
     };
 

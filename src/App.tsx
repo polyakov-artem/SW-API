@@ -21,6 +21,10 @@ const App: FC = () => {
     }
   }, [navigate, paramsForItemsSearch, isFirstLoading, savedSearch]);
 
+  if (isFirstLoading) {
+    return null;
+  }
+
   return (
     <div className="page">
       <header className="page__header">
@@ -28,7 +32,9 @@ const App: FC = () => {
           <ErrorComponent />
         </div>
       </header>
-      <main className="page__main">{isFirstLoading ? null : <Search />}</main>
+      <main className="page__main">
+        <Search />
+      </main>
     </div>
   );
 };

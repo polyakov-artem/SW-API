@@ -2,14 +2,14 @@ import { CategoryItemType, EndpointsResponsesType, SavedSearchType } from '../ty
 import httpService from './http-service';
 import localStorageService from './local-storage-service';
 
-type SearchParamsType<T> = {
+export type SearchParamsType<T> = {
   category: T;
   search?: string;
   page?: string;
   signal?: AbortSignal;
 };
 
-type FetchItemParamsType<T> = {
+export type FetchItemParamsType<T> = {
   category: T;
   itemId: string;
   signal?: AbortSignal;

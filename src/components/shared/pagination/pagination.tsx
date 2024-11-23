@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { NUMBERS_PLACEHOLDER, usePaginationRange } from './usePagination';
+import { getBaseUrlForPageParam } from './pagination-utils';
 
 const BASE_CLASS_NAME = 'pagination';
 const itemClassName = `${BASE_CLASS_NAME}__item`;
@@ -24,14 +25,6 @@ export type PaginationPropsType = {
 };
 
 const MINIMAL_NUMBER_MESSAGE = 'Number of visible buttons should be at least 7';
-
-const getBaseUrlForPageParam = (url: string) => {
-  const clearedPath = url.replace(/\?(page=.*&)|(&page=[^&]*)/i, '');
-  const hasEndSlash = /\/$/.test(clearedPath);
-  const hasParams = /\/\?/.test(clearedPath);
-  const pageParamString = 'page=';
-  return `${clearedPath}${hasParams ? `&${pageParamString}` : hasEndSlash ? `?${pageParamString}` : `/?${pageParamString}`}`;
-};
 
 const Pagination: FC<PaginationPropsType> = ({
   currentPageParam,

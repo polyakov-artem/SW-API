@@ -3,7 +3,7 @@ import './results-list.scss';
 import { CorrectResponseResultsType, ItemsSearchQueryType } from '../../../types/types';
 import ResultsItem from '../results-item/results-item';
 
-type ResultListPropsType = {
+export type ResultListPropsType = {
   items: CorrectResponseResultsType;
   searchQuery: ItemsSearchQueryType;
 };

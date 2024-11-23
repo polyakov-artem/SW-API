@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './results-item.scss';
 import { ItemsSearchQueryType } from '../../../types/types';
 
-interface ResultsItemProps {
+export interface ResultsItemProps {
   title: string;
   url: string;
   searchQuery: ItemsSearchQueryType;

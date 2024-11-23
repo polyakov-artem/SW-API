@@ -9,10 +9,10 @@ import {
 } from '../utils/load-data';
 import { SwCategory } from '../enums/enums';
 
-type itemLoaderStateType = LoaderState<CategoryItemType[SwCategory]>;
+export type ItemLoaderStateType = LoaderState<CategoryItemType[SwCategory]>;
 
 const useItemLoader = (category: SwCategory, itemId: string) => {
-  const [itemLoader, setItemLoader] = useState<itemLoaderStateType>(getLoadingState);
+  const [itemLoader, setItemLoader] = useState<ItemLoaderStateType>(getLoadingState);
 
   const abortRef = useRef(new AbortController());
   const isMountedRef = useRef(false);

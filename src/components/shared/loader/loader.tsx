@@ -7,7 +7,7 @@ import { getClassNames } from '../../../utils/getClassNames';
 export const BASE_CLASS_NAME = 'loader';
 export const loaderContainerClassName = `${BASE_CLASS_NAME}__container`;
 
-interface LoaderPropsType extends ComponentProps<'span'> {
+export interface LoaderPropsType extends ComponentProps<'span'> {
   classMods?: ClassModsType;
 }
 

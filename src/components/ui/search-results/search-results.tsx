@@ -6,9 +6,7 @@ import Pagination from '../../shared/pagination/pagination';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import SearchResultsContent from '../search-results-content/search-results-content';
 
-type SearchResultsPropsType = CategoryLoaderAndSearchQueryType;
-
-const SearchResults: FC<SearchResultsPropsType> = ({ categoryLoader, searchQuery }) => {
+const SearchResults: FC<CategoryLoaderAndSearchQueryType> = ({ categoryLoader, searchQuery }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { itemId } = useParams();

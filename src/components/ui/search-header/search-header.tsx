@@ -9,7 +9,7 @@ import { SwCategory } from '../../../enums/enums';
 import swService from '../../../services/sw-service';
 import { useNavigate } from 'react-router';
 
-interface SearchHeaderPropsType {
+export interface SearchHeaderPropsType {
   options: OptionsType;
   initialCategory: SwCategory;
   initialSearch: string;

@@ -8,7 +8,7 @@ import {
   LoaderState,
 } from '../utils/load-data';
 
-type CategoryLoaderStateType = LoaderState<CorrectResponseDataType>;
+export type CategoryLoaderStateType = LoaderState<CorrectResponseDataType>;
 
 const useCategoryLoader = (searchQuery: ItemsSearchQueryType) => {
   const [categoryLoader, setCategoryLoader] = useState<CategoryLoaderStateType>(getLoadingState);

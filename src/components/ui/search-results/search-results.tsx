@@ -50,12 +50,7 @@ const SearchResults: FC<CategoryLoaderAndSearchQueryType> = ({ categoryLoader, s
   return (
     <div className="search-results" onClick={handleClick}>
       <div className="search-results__pagination-wrap" ref={paginationRef}>
-        <Pagination
-          totalCount={prevLoaderData?.count}
-          perPageCount={10}
-          currentPageParam={searchQuery.page}
-          numOfVisibleButtons={7}
-        />
+        <Pagination totalCount={prevLoaderData?.count} perPageCount={10} />
       </div>
       <div className="search-results__content" ref={contentRef}>
         <SearchResultsContent categoryLoader={categoryLoader} searchQuery={searchQuery} />

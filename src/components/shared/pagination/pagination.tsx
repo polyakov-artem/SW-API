@@ -1,47 +1,55 @@
 import './pagination.scss';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import { NUMBERS_PLACEHOLDER, usePaginationRange } from './usePagination';
+import { Link, useSearchParams } from 'react-router-dom';
+import { NUMBERS_PLACEHOLDER, getPaginationRange } from './get-pagination-range';
 import { getBaseUrlForPageParam } from './pagination-utils';
 
-const BASE_CLASS_NAME = 'pagination';
-const itemClassName = `${BASE_CLASS_NAME}__item`;
-const btnClassName = `${BASE_CLASS_NAME}__btn`;
-const placeholderClassName = `${BASE_CLASS_NAME}__placeholder`;
-const btnSelectedClassName = `${btnClassName}_selected`;
-const btnDisabledClassName = `${BASE_CLASS_NAME}__btn_disabled`;
-const nextBtnClassName = `${BASE_CLASS_NAME}__btn-next`;
-const prevBtnClassName = `${BASE_CLASS_NAME}__btn-prev`;
+export const BASE_CLASS_NAME = 'pagination';
+export const itemClassName = `${BASE_CLASS_NAME}__item`;
+export const btnClassName = `${BASE_CLASS_NAME}__btn`;
+export const placeholderClassName = `${BASE_CLASS_NAME}__placeholder`;
+export const btnSelectedClassName = `${btnClassName}_selected`;
+export const btnDisabledClassName = `${BASE_CLASS_NAME}__btn_disabled`;
+export const nextBtnClassName = `${BASE_CLASS_NAME}__btn-next`;
+export const prevBtnClassName = `${BASE_CLASS_NAME}__btn-prev`;
 
 export type PaginationPropsType = {
   totalCount: number | undefined;
   perPageCount: number;
-  currentPageParam: string;
-  numOfVisibleButtons: number;
+  maxNumOfVisiblePages?: number;
   className?: string;
   prevBtnLabel?: ReactNode;
   nextBtnLabel?: ReactNode;
 };
 
-const MINIMAL_NUMBER_MESSAGE = 'Number of visible buttons should be at least 7';
+const MINIMAL_NUMBER_MESSAGE = 'Number of visible pages should be at least 7';
 
 const Pagination: FC<PaginationPropsType> = ({
-  currentPageParam,
   perPageCount,
   className,
   totalCount = 0,
-  numOfVisibleButtons,
+  maxNumOfVisiblePages = 7,
   prevBtnLabel = '«',
   nextBtnLabel = '»',
 }) => {
-  const parsedPageNumber = parseInt(currentPageParam);
+  const [queries] = useSearchParams();
+  const currentPageParam = queries.get('page');
+  const parsedPageNumber = parseInt(currentPageParam || '');
   const currentPage = isNaN(parsedPageNumber) || parsedPageNumber <= 0 ? 1 : parsedPageNumber;
   const numberOfPages = Math.ceil(totalCount / perPageCount);
 
-  if (numOfVisibleButtons < 7) throw new Error(MINIMAL_NUMBER_MESSAGE);
+  if (maxNumOfVisiblePages < 7) throw new Error(MINIMAL_NUMBER_MESSAGE);
 
-  const pageNumbers = usePaginationRange({ numberOfPages, numOfVisibleButtons, currentPage });
+  const paginationRange = useMemo(
+    () =>
+      getPaginationRange({
+        numberOfPages,
+        numOfVisibleButtons: maxNumOfVisiblePages,
+        currentPage,
+      }),
+    [numberOfPages, maxNumOfVisiblePages, currentPage]
+  );
 
   if (!totalCount || totalCount <= perPageCount) return null;
 
@@ -81,7 +89,7 @@ const Pagination: FC<PaginationPropsType> = ({
     </li>
   );
 
-  const links = pageNumbers?.map((number, index) => {
+  const links = paginationRange?.map((number, index) => {
     const linkClassName = classNames(btnClassName, {
       [btnSelectedClassName]: currentPage === number,
     });

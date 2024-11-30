@@ -134,7 +134,7 @@ export interface SpeciesType {
   hair_colors: string;
   skin_colors: string;
   language: string;
-  homeworld: string;
+  homeworld: string | null;
   people: string[];
   films: string[];
   url: string;
@@ -152,8 +152,8 @@ export interface PlanetType {
   climate: string;
   terrain: string;
   surface_water: string;
-  residents: string;
-  films: string;
+  residents: string[];
+  films: string[];
   url: string;
   created: string;
   edited: string;

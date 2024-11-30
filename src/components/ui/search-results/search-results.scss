@@ -2,7 +2,17 @@
   padding: 20px;
   border: 1px solid var(--black);
   border-radius: 5px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &__pagination {
+    flex: none;
+    align-self: center;
+  }
+
+  &__list-container {
+    flex: 1 1 auto;
+  }
 
   &__loader {
     width: 100%;

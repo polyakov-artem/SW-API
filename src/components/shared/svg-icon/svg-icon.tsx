@@ -1,27 +1,26 @@
 import { ComponentProps, FC } from 'react';
 import './svg-icon.scss';
-import { Size } from '../../../types/types';
+import { ClassModsType } from '../../../types/types';
 import { getClassNames } from '../../../utils/getClassNames';
 
-const BASE_CLASS_NAME = 'svg-icon';
+export const BASE_CLASS_NAME = 'svg-icon';
 
-interface SvgIconPropsType extends ComponentProps<'svg'> {
-  view: string;
-  size?: Size;
+export interface SvgIconPropsType extends ComponentProps<'svg'> {
+  classMods?: ClassModsType;
 }
 
 const SvgIcon: FC<SvgIconPropsType> = (props) => {
-  const { view, size, className, ...elementIntrinsicProps } = props;
+  const { classMods, className, ...intrinsicProps } = props;
 
   const classes = getClassNames({
     baseClass: BASE_CLASS_NAME,
-    classMods: { view, size },
+    classMods,
     mix: className,
   });
 
   return (
-    <svg className={classes} {...elementIntrinsicProps}>
-      <use xlinkHref={`#${view}`} />
+    <svg className={classes} {...intrinsicProps}>
+      <use xlinkHref={`#${classMods?.view}`} />
     </svg>
   );
 };

@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router';
 import ErrorBoundary from './components/shared/error-boundary/error-boundary';
 import App from './App';
+import ItemDetails from './components/ui/item-details/item-details';
 
 const appWithErrorBoundary = (
   <ErrorBoundary>
@@ -15,7 +16,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: ':itemId',
-        element: <h1>Item details</h1>,
+        element: <ItemDetails />,
       },
     ],
   },

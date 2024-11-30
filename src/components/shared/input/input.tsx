@@ -1,60 +1,35 @@
 import './input.scss';
-import { Size } from '../../../types/types';
+import { ClassModsType } from '../../../types/types';
 import { ComponentProps, FC, ReactNode } from 'react';
 import { getClassNames } from '../../../utils/getClassNames';
 
-const BASE_CLASS_NAME = 'input';
-const inputControlClassName = `${BASE_CLASS_NAME}__control`;
-const inputIconClassName = `${BASE_CLASS_NAME}__icon`;
+export const BASE_CLASS_NAME = 'input';
+export const inputControlClassName = `${BASE_CLASS_NAME}__control`;
+export const inputIconClassName = `${BASE_CLASS_NAME}__icon`;
 
-export interface InputPropsType {
+export interface InputPropsType extends ComponentProps<'div'> {
   icon?: ReactNode;
-  disabled?: boolean;
-  invalid?: boolean;
-  view?: string;
-  theme?: string;
-  size?: Size;
-  className?: string;
-  iconBefore?: boolean;
+  classMods?: ClassModsType & {
+    'icon-after'?: boolean;
+    'icon-before'?: boolean;
+    invalid?: boolean;
+    view?: 'primary';
+  };
+  controlProps?: ComponentProps<'input'>;
 }
 
-type InputComponentPropsType = InputPropsType & ComponentProps<'input'>;
-
-const Input: FC<InputComponentPropsType> = (props) => {
-  const {
-    icon,
-    disabled,
-    invalid,
-    view = 'primary',
-    theme,
-    size,
-    iconBefore,
-    className,
-    ...intrinsicProps
-  } = props;
-
-  const iconPosMods = icon
-    ? iconBefore
-      ? { ['icon-before']: true }
-      : { ['icon-after']: true }
-    : {};
+const Input: FC<InputPropsType> = (props) => {
+  const { icon, className, classMods, controlProps, ...wrapIntrinsicProps } = props;
 
   const classes = getClassNames({
     baseClass: BASE_CLASS_NAME,
-    classMods: {
-      disabled,
-      view,
-      theme,
-      size,
-      invalid,
-      ...iconPosMods,
-    },
+    classMods,
     mix: className,
   });
 
   return (
-    <div className={classes}>
-      <input className={inputControlClassName} disabled={disabled} {...intrinsicProps} />
+    <div className={classes} {...wrapIntrinsicProps} data-testid="input">
+      <input className={inputControlClassName} {...controlProps} />
       {icon && <span className={inputIconClassName}>{icon}</span>}
     </div>
   );

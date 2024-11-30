@@ -2,6 +2,7 @@ import { ComponentProps } from 'react';
 import { SwCategory } from '../enums/enums';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
+export type ClassModsType = Record<string, string | boolean | undefined>;
 
 export type InputChangeHandlerType = NonNullable<ComponentProps<'input'>['onChange']>;
 export type SelectChangeHandlerType = NonNullable<ComponentProps<'select'>['onChange']>;

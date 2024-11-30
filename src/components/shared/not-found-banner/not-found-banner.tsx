@@ -9,7 +9,9 @@ const NotFoundBanner: FC = () => {
   return (
     <div className="not-found-banner">
       <h1>The requested page was not found</h1>
-      <Button onClick={() => navigate('/')}>Home</Button>
+      <Button classMods={{ view: 'primary' }} onClick={() => navigate('/')}>
+        Home
+      </Button>
     </div>
   );
 };

@@ -2,11 +2,11 @@ import { Component, ReactNode } from 'react';
 import Button from '../../shared/button/button';
 import './error-component.scss';
 
-interface ErrorComponentPropsType {
+export interface ErrorComponentPropsType {
   children?: ReactNode;
 }
 
-interface ErrorComponentStateType {
+export interface ErrorComponentStateType {
   error: boolean;
 }
 
@@ -20,7 +20,9 @@ class ErrorComponent extends Component<ErrorComponentPropsType, ErrorComponentSt
   render() {
     return (
       <div className="error-component">
-        <Button onClick={this.handlerClick}>Cause error</Button>
+        <Button onClick={this.handlerClick} classMods={{ view: 'primary' }}>
+          Cause error
+        </Button>
         {this.state.error && <RuntimeError />}
       </div>
     );

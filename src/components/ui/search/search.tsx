@@ -45,7 +45,7 @@ const Search: FC = () => {
         initialSearch={search}
         onSubmit={handleSubmit}
       />
-      <SearchResults {...categoryLoader} searchQuery={searchQuery} />
+      <SearchResults categoryLoader={categoryLoader} searchQuery={searchQuery} />
       <Outlet />
     </div>
   );

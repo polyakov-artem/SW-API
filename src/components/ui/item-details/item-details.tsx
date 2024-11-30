@@ -46,7 +46,9 @@ const ItemDetails: FC = () => {
   const content = useMemo(() => {
     const cases = {
       idle: null,
-      loading: <Loader className="search-results__loader" />,
+      loading: (
+        <Loader classMods={{ ['full-space']: true, size: 'lg' }} className="item-details__loader" />
+      ),
       error: <h2>Error occurred while loading: {error}</h2>,
       success: data ? <>{element}</> : <h2>No item was found</h2>,
     };

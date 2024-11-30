@@ -11,7 +11,8 @@ const SearchResultsContent: FC<CategoryLoaderAndSearchQueryType> = ({
 }) => {
   const { data, error, status } = categoryLoader;
 
-  if (status === LoadingStatus.loading) return <Loader fullSpace={true} size="lg" />;
+  if (status === LoadingStatus.loading)
+    return <Loader classMods={{ ['full-space']: true, size: 'lg' }} />;
 
   if (status === LoadingStatus.error) return <h2>Error occurred while loading: {error}</h2>;
 

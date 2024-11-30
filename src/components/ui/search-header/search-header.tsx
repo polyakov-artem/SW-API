@@ -54,14 +54,23 @@ class SearchHeader extends Component<SearchHeaderPropsType, SearchHeaderStateTyp
       <div className="search-header">
         <h1 className="search-header__heading">Enter your search request</h1>
         <form className="search-header__field" onSubmit={this.handleSubmit}>
-          <Select name="category" options={options} onChange={this.handleChange} value={category} />
+          <Select
+            options={options}
+            classMods={{ view: 'primary' }}
+            controlProps={{ onChange: this.handleChange, value: category, name: 'category' }}
+          />
           <Input
-            name="search"
-            onChange={this.handleChange}
-            value={search}
+            controlProps={{
+              name: 'search',
+              onChange: this.handleChange,
+              value: search,
+            }}
+            classMods={{ view: 'primary' }}
             className="search-header__input"
           />
-          <Button icon={<SvgIcon view="search" />}>Search</Button>
+          <Button icon={<SvgIcon classMods={{ view: 'search' }} />} classMods={{ view: 'primary' }}>
+            Search
+          </Button>
         </form>
       </div>
     );

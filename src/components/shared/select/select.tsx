@@ -1,54 +1,30 @@
 import { ComponentProps, FC } from 'react';
-import { Size } from '../../../types/types';
-
+import { ClassModsType } from '../../../types/types';
 import './select.scss';
 import { getClassNames } from '../../../utils/getClassNames';
-import { SwCategory } from '../../../enums/enums';
+import classNames from 'classnames';
 
-const BASE_CLASS_NAME = 'select';
-const selectControlClassName = `${BASE_CLASS_NAME}__control`;
-const selectOptionClassName = `${BASE_CLASS_NAME}__option`;
+export const BASE_CLASS_NAME = 'select';
+export const selectControlClassName = `${BASE_CLASS_NAME}__control`;
+export const selectOptionClassName = `${BASE_CLASS_NAME}__option`;
 
-export type OptionsType = Array<{ label: string; value: SwCategory }>;
+export type OptionsType = Array<{ label: string; value: string }>;
 
-export interface SelectPropsType {
-  disabled?: boolean;
-  invalid?: boolean;
-  view?: 'primary';
-  theme?: string;
-  size?: Size;
-  className?: string;
-  state?: 'idle' | 'loading';
-  loadingText?: string;
-  options: OptionsType;
+export interface SelectPropsType extends ComponentProps<'div'> {
+  classMods?: ClassModsType & {
+    view?: 'primary';
+    invalid?: boolean;
+  };
+  options?: OptionsType;
+  controlProps?: ComponentProps<'select'>;
 }
 
-type SelectComponentProps = SelectPropsType & ComponentProps<'select'>;
-
-const Select: FC<SelectComponentProps> = (props) => {
-  const {
-    disabled,
-    invalid,
-    view = 'primary',
-    theme,
-    size,
-    className,
-    state = 'idle',
-    loadingText = 'Loading...',
-    options,
-    value = '',
-    ...elementIntrinsicProps
-  } = props;
+const Select: FC<SelectPropsType> = (props) => {
+  const { classMods, className, options = [], controlProps, ...wrapIntrinsicProps } = props;
 
   const classes = getClassNames({
     baseClass: BASE_CLASS_NAME,
-    classMods: {
-      invalid,
-      disabled,
-      view,
-      theme,
-      size,
-    },
+    classMods,
     mix: className,
   });
 
@@ -58,25 +34,13 @@ const Select: FC<SelectComponentProps> = (props) => {
     </option>
   ));
 
-  const currentOptions =
-    state === 'loading' ? (
-      <option value="" key={'loading'}>
-        {loadingText}
-      </option>
-    ) : (
-      optionsArray
-    );
-
-  const currentValue = state !== 'idle' ? '' : value;
-
   return (
-    <div className={classes}>
+    <div className={classes} {...wrapIntrinsicProps}>
       <select
-        className={selectControlClassName}
-        value={currentValue}
-        disabled={disabled}
-        {...elementIntrinsicProps}>
-        {currentOptions}
+        {...controlProps}
+        className={classNames(selectControlClassName, controlProps?.className)}
+        value={controlProps?.value || ''}>
+        {optionsArray}
       </select>
     </div>
   );

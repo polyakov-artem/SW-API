@@ -7,12 +7,13 @@ import { SavedSearchType, SubmitHandlerType } from '../../../types/types';
 import './search-header.scss';
 import { SwCategory } from '../../../enums/enums';
 import swService from '../../../services/sw-service';
+import { useNavigate } from 'react-router';
 
 interface SearchHeaderPropsType {
   options: OptionsType;
   initialCategory: SwCategory;
   initialSearch: string;
-  onSubmit?: (searchState: SavedSearchType) => void;
+  onSubmit?: () => void;
 }
 
 const SearchHeader: FC<SearchHeaderPropsType> = ({
@@ -27,6 +28,8 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
       ? initialCategory
       : (options[0].value as SwCategory),
   });
+
+  const navigate = useNavigate();
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;
@@ -47,9 +50,10 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
       const nextState = { search: trimmedSearch, category };
       setState(nextState);
       swService.saveSearch(nextState);
-      onSubmit?.(nextState);
+      navigate(`/${category}/?search=${trimmedSearch}&page=1`, { relative: 'path' });
+      onSubmit?.();
     },
-    [onSubmit, state]
+    [onSubmit, state, navigate]
   );
 
   const { category, search } = state;

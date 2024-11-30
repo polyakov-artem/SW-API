@@ -13,6 +13,12 @@ export type SavedSearchType = {
   category: SwCategory;
 };
 
+export type ItemsSearchQueryType = {
+  category: SwCategory;
+  search: string;
+  page: string;
+};
+
 export type ResponseDataType<T> = {
   count: number;
   next: string | null;

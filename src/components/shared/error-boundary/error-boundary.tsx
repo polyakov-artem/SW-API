@@ -2,11 +2,11 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 import './error-boundary.scss';
 import Button from '../button/button';
 
-interface ErrorBoundaryPropsType {
-  children: ReactNode;
+export interface ErrorBoundaryPropsType {
+  children?: ReactNode;
 }
 
-interface ErrorBoundaryStateType {
+export interface ErrorBoundaryStateType {
   hasError: boolean;
 }
 
@@ -30,7 +30,9 @@ class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryState
         <main className="error-boundary">
           <div className="container">
             <h1>An unexpected error has occurred. Please reload the page later</h1>
-            <Button onClick={this.handleClick}>Reload</Button>
+            <Button onClick={this.handleClick} classMods={{ view: 'primary' }}>
+              Reload
+            </Button>
           </div>
         </main>
       );

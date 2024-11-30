@@ -1,20 +1,28 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import './error-boundary.scss';
 import Button from '../button/button';
+import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
+import { Navigate } from 'react-router';
 
-export interface ErrorBoundaryPropsType {
+interface ErrorBoundaryPropsType {
   children?: ReactNode;
 }
 
-export interface ErrorBoundaryStateType {
-  hasError: boolean;
+interface ErrorBoundaryStateType {
+  error: Error | null;
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryStateType> {
-  state = { hasError: false };
+  constructor(props: ErrorBoundaryPropsType) {
+    super(props);
+    this.state = {
+      error: null,
+    };
+  }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: unknown) {
+    console.log('error', error);
+    return { error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -25,7 +33,13 @@ class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryState
   handleClick = () => window.location.reload();
 
   render() {
-    if (this.state.hasError) {
+    const { error } = this.state;
+
+    if (error?.message === NOT_FOUND_MESSAGE) {
+      return <Navigate to="/not-found-page" relative="path" />;
+    }
+
+    if (error) {
       return (
         <main className="error-boundary">
           <div className="container">

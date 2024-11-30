@@ -8,6 +8,7 @@ import { ItemsSearchQueryType } from '../../../types/types';
 import useParamsForItemsSearch from '../../../hooks/use-params-for-items-search';
 import useCategoryLoader from '../../../hooks/use-items-search';
 import classNames from 'classnames';
+import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 
 const BASE_CLASS_NAME = 'search';
 const searchWithDetailsClassName = `${BASE_CLASS_NAME}_has-details`;
@@ -32,6 +33,8 @@ const Search: FC = () => {
   }, [paramsForItemsSearch]);
 
   const { search, category } = searchQuery;
+
+  if (categoryLoader.error === NOT_FOUND_MESSAGE) throw new Error(NOT_FOUND_MESSAGE);
 
   return (
     <div className={searchClassNames}>

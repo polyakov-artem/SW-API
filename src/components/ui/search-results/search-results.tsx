@@ -1,60 +1,67 @@
-import { FC, useEffect, useState } from 'react';
-import Loader from '../../shared/loader/loader';
+import { FC, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import './search-results.scss';
-import { LoaderState, LoadingStatus } from '../../../utils/load-data';
-import { CorrectResponseDataType, ItemsSearchQueryType } from '../../../types/types';
-import { capitalizeWord } from '../../../utils/capitalize-word';
-import ResultsList from '../results-list/results-list';
+import { LoadingStatus } from '../../../utils/load-data';
+import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
 import Pagination from '../../shared/pagination/pagination';
+import { useLocation, useNavigate, useParams } from 'react-router';
+import SearchResultsContent from '../search-results-content/search-results-content';
 
-type SearchResultsPropsType = LoaderState<CorrectResponseDataType> & {
-  searchQuery: ItemsSearchQueryType;
-};
+type SearchResultsPropsType = CategoryLoaderAndSearchQueryType;
 
-const SearchResults: FC<SearchResultsPropsType> = ({ data, status, error, searchQuery }) => {
-  const [prevData, setPrevData] = useState(data);
+const SearchResults: FC<SearchResultsPropsType> = ({ categoryLoader, searchQuery }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { itemId } = useParams();
+
+  const paginationRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const loaderData = categoryLoader.data;
+  const loaderStatus = categoryLoader.status;
+
   const [prevCategory, setPrevCategory] = useState(searchQuery.category);
+  const [prevLoaderData, setPrevLoaderData] = useState(loaderData);
 
   useEffect(() => {
     if (searchQuery.category !== prevCategory) {
       setPrevCategory(searchQuery.category);
-      setPrevData(data);
+      setPrevLoaderData(loaderData);
       return;
     }
-    if (status === LoadingStatus.success) {
-      setPrevData(data);
+    if (loaderStatus === LoadingStatus.success) {
+      setPrevLoaderData(loaderData);
     }
-  }, [searchQuery, prevCategory, data, status]);
+  }, [searchQuery.category, prevCategory, loaderData, loaderStatus]);
 
-  const content = ((status) => {
-    const cases = {
-      idle: null,
-      loading: <Loader className="search-results__loader" />,
-      error: <h2>Error occurred while loading: {error}</h2>,
-      success:
-        data?.count && data.results ? (
-          <ResultsList items={data.results} searchQuery={searchQuery} />
-        ) : (
-          <h2>
-            No results were found for the "{searchQuery.search}" query in the "
-            {capitalizeWord(searchQuery.category)}" category
-          </h2>
-        ),
-    };
+  const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (
+        itemId === undefined ||
+        !paginationRef.current ||
+        !contentRef.current ||
+        paginationRef.current.contains(e.target as HTMLElement) ||
+        contentRef.current.contains(e.target as HTMLElement)
+      )
+        return;
 
-    return cases[status];
-  })(status);
+      navigate(`/${searchQuery.category}/${location.search}`, { relative: 'path' });
+    },
+    [navigate, searchQuery.category, location.search, itemId]
+  );
 
   return (
-    <div className="search-results">
-      <Pagination
-        className="search-results__pagination"
-        totalCount={prevData?.count}
-        perPageCount={10}
-        currentPageParam={searchQuery.page}
-        numOfVisibleButtons={7}
-      />
-      <div className="search-results__list-container">{content}</div>
+    <div className="search-results" onClick={handleClick}>
+      <div className="search-results__pagination-wrap" ref={paginationRef}>
+        <Pagination
+          totalCount={prevLoaderData?.count}
+          perPageCount={10}
+          currentPageParam={searchQuery.page}
+          numOfVisibleButtons={7}
+        />
+      </div>
+      <div className="search-results__content" ref={contentRef}>
+        <SearchResultsContent categoryLoader={categoryLoader} searchQuery={searchQuery} />
+      </div>
     </div>
   );
 };

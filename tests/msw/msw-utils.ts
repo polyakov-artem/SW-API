@@ -16,3 +16,14 @@ export const addNetworkError = (server: SetupServerApi, url: string = '*') => {
     })
   );
 };
+
+export const addNotFoundError = (server: SetupServerApi, url: string = '*') => {
+  server.use(
+    http.get(url, async () => {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: 'Not found',
+      });
+    })
+  );
+};

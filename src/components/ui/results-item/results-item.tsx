@@ -9,8 +9,8 @@ export interface ResultsItemProps {
   searchQuery: ItemsSearchQueryType;
 }
 
-const BASE_CLASS_NAME = 'results-item';
-const itemLink = `${BASE_CLASS_NAME}__link`;
+export const BASE_CLASS_NAME = 'results-item';
+export const itemLink = `${BASE_CLASS_NAME}__link`;
 
 const ResultsItem: FC<ResultsItemProps> = ({ title, url, searchQuery }) => {
   const id = url.match(/\/(\d+)\/$/)?.[1] || '';

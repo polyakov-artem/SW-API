@@ -15,6 +15,7 @@ describe('Loader', () => {
         <DocumentFragment>
           <span
             class="loader loader_full-space loader_size_lg parent__loader"
+            data-testid="loader"
           >
             <span
               class="loader__container"

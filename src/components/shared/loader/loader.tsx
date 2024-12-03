@@ -21,7 +21,7 @@ const Loader: FC<LoaderPropsType> = (props) => {
   });
 
   return (
-    <span className={classes} {...intrinsicProps}>
+    <span className={classes} {...intrinsicProps} data-testid="loader">
       <span className={loaderContainerClassName}></span>
     </span>
   );

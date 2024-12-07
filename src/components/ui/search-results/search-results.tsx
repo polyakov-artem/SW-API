@@ -5,6 +5,7 @@ import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
 import Pagination from '../../shared/pagination/pagination';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import SearchResultsContent from '../search-results-content/search-results-content';
+import { BASE_URL } from '../../../constants/constants';
 
 const SearchResults: FC<CategoryLoaderAndSearchQueryType> = ({ categoryLoader, searchQuery }) => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const SearchResults: FC<CategoryLoaderAndSearchQueryType> = ({ categoryLoader, s
       )
         return;
 
-      navigate(`/${searchQuery.category}/${location.search}`, { relative: 'path' });
+      navigate(`${BASE_URL}${searchQuery.category}/${location.search}`, { relative: 'path' });
     },
     [navigate, searchQuery.category, location.search, itemId]
   );

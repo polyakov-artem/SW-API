@@ -4,6 +4,7 @@ import ErrorBoundary from './error-boundary';
 import { PropsWithChildren } from 'react';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import userEvent from '@testing-library/user-event';
+import { BASE_URL } from '../../../constants/constants';
 
 const renderErrorBoundary = ({ children }: PropsWithChildren) =>
   render(<ErrorBoundary>{children}</ErrorBoundary>, { wrapper: MemoryRouter });
@@ -48,18 +49,21 @@ describe('ErrorBoundary', () => {
       const TestComponent = () => {
         throw new Error(NOT_FOUND_MESSAGE);
       };
-      const HomePage = () => <div>Home</div>;
+
+      const HomePage = () => (
+        <ErrorBoundary>
+          <div>Home</div>
+          <TestComponent />
+        </ErrorBoundary>
+      );
+
       const NotFoundPage = () => <div>Not found</div>;
 
       render(
         <MemoryRouter>
-          <ErrorBoundary>
-            <TestComponent />
-          </ErrorBoundary>
-
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/not-found-page" element={<NotFoundPage />} />
+            <Route path={`${BASE_URL}not-found-page`} element={<NotFoundPage />} />
           </Routes>
         </MemoryRouter>
       );

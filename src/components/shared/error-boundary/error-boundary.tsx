@@ -3,6 +3,7 @@ import './error-boundary.scss';
 import Button from '../button/button';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import { Navigate } from 'react-router';
+import { BASE_URL } from '../../../constants/constants';
 
 interface ErrorBoundaryPropsType {
   children?: ReactNode;
@@ -36,7 +37,7 @@ class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryState
     const { error } = this.state;
 
     if (error?.message === NOT_FOUND_MESSAGE) {
-      return <Navigate to="/not-found-page" relative="path" />;
+      return <Navigate to={`${BASE_URL}not-found-page`} relative="path" />;
     }
 
     if (error) {

@@ -8,6 +8,7 @@ import './search-header.scss';
 import { SwCategory } from '../../../enums/enums';
 import swService from '../../../services/sw-service';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../../constants/constants';
 
 export interface SearchHeaderPropsType {
   options: OptionsType;
@@ -52,7 +53,7 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
       const nextState = { search: trimmedSearch, category };
       setState(nextState);
       swService.saveSearch(nextState);
-      navigate(`/${category}/?search=${trimmedSearch}&page=1`, { relative: 'path' });
+      navigate(`${BASE_URL}${category}/?search=${trimmedSearch}&page=1`, { relative: 'path' });
       onSubmit?.();
     },
     [onSubmit, state, navigate]

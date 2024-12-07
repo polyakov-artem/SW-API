@@ -20,6 +20,7 @@ import Species from '../species/species';
 import Starship from '../starship/starship';
 import Vehicle from '../vehicle/vehicle';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
+import { BASE_URL } from '../../../constants/constants';
 
 const ItemDetails: FC = () => {
   const { category, itemId } = useParams();
@@ -57,7 +58,7 @@ const ItemDetails: FC = () => {
   }, [status, data, error, element]);
 
   const handleClick = useCallback(() => {
-    navigate(`/${category}/${location.search}`, { relative: 'path' });
+    navigate(`${BASE_URL}${category}/${location.search}`, { relative: 'path' });
   }, [navigate, category, location]);
 
   if (itemLoader.error === NOT_FOUND_MESSAGE) throw new Error(NOT_FOUND_MESSAGE);

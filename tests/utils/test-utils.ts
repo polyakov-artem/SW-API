@@ -1,3 +1,5 @@
+import { toCamelCase } from '../../src/utils/to-camel-case';
+
 export type getter = () => HTMLElement[] | HTMLElement;
 
 export const assertExistance = (...getters: Array<getter>) => {
@@ -43,3 +45,35 @@ export const delay = (time?: number) => {
     }, time);
   });
 };
+
+export function createGetter(className: string): () => HTMLElement {
+  const getterName = `get${toCamelCase(className)}`;
+
+  const wrap = {
+    [getterName]() {
+      const result = document.body.querySelector<HTMLElement>(`.${className}`);
+
+      if (result) return result;
+
+      throw new Error(`Element with class ${className} were not found`);
+    },
+  };
+
+  return wrap[getterName];
+}
+
+export function createArrayGetter(className: string): () => HTMLElement[] {
+  const getterName = `get${toCamelCase(className)}`;
+
+  const wrap = {
+    [getterName]() {
+      const result = [...document.body.querySelectorAll<HTMLElement>(`.${className}`)];
+
+      if (result.length) return result;
+
+      throw new Error(`Elements with class ${className} were not found`);
+    },
+  };
+
+  return wrap[getterName];
+}

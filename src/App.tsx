@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import useParamsForItemsSearch from './hooks/use-params-for-items-search';
 import Search from './components/ui/search/search';
 import { useSavedSearch } from './hooks/use-saved-search';
+import { BASE_URL } from './constants/constants';
 
 const App: FC = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
@@ -15,7 +16,7 @@ const App: FC = () => {
   useEffect(() => {
     if (isFirstLoading) {
       const { search, category, page } = savedSearch || paramsForItemsSearch;
-      navigate(`/${category}/?search=${search}&page=${page}`);
+      navigate(`${BASE_URL}${category}/?search=${search}&page=${page}`);
 
       setIsFirstLoading(false);
     }

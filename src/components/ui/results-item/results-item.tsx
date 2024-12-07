@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './results-item.scss';
 import { ItemsSearchQueryType } from '../../../types/types';
+import { BASE_URL } from '../../../constants/constants';
 
 export interface ResultsItemProps {
   title: string;
@@ -20,7 +21,7 @@ const ResultsItem: FC<ResultsItemProps> = ({ title, url, searchQuery }) => {
     <li className={BASE_CLASS_NAME}>
       <Link
         className={itemLink}
-        to={`/${category}/${id}/?search=${search}&page=${page}`}
+        to={`${BASE_URL}${category}/${id}/?search=${search}&page=${page}`}
         relative="path">
         {title}
       </Link>

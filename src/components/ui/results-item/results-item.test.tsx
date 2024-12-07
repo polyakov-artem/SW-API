@@ -3,6 +3,7 @@ import ResultsItem, { BASE_CLASS_NAME, itemLink, ResultsItemProps } from './resu
 import { SwCategory } from '../../../enums/enums';
 import { ItemsSearchQueryType } from '../../../types/types';
 import { MemoryRouter } from 'react-router';
+import { BASE_URL } from '../../../constants/constants';
 
 const category = SwCategory.films;
 const search = '';
@@ -31,7 +32,7 @@ describe('ResultsItem', () => {
       expect(getLink()).toHaveClass(itemLink);
       expect(getLink()).toHaveAttribute(
         'href',
-        `/${category}/${id}/?search=${search}&page=${page}`
+        `${BASE_URL}${category}/${id}/?search=${search}&page=${page}`
       );
     });
   });

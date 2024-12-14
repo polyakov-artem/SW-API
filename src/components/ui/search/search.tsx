@@ -1,10 +1,9 @@
 import './search.scss';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import SearchHeader from '../search-header/search-header';
 import SearchResults from '../search-results/search-results';
 import { Outlet, useParams } from 'react-router';
 import { selectOptions } from '../../../constants/constants';
-import { ItemsSearchQueryType } from '../../../types/types';
 import useParamsForItemsSearch from '../../../hooks/use-params-for-items-search';
 import useCategoryLoader from '../../../hooks/use-items-search';
 import classNames from 'classnames';
@@ -16,23 +15,14 @@ const searchHeaderClassName = `${BASE_CLASS_NAME}__search-header`;
 
 const Search: FC = () => {
   const paramsForItemsSearch = useParamsForItemsSearch();
-  const [searchQuery, setSearchQuery] = useState<ItemsSearchQueryType>(paramsForItemsSearch);
-  const categoryLoader = useCategoryLoader(searchQuery);
+  const categoryLoader = useCategoryLoader(paramsForItemsSearch);
   const { itemId } = useParams();
 
   const searchClassNames = classNames(BASE_CLASS_NAME, 'container', {
     [searchWithDetailsClassName]: !!itemId,
   });
 
-  const handleSubmit = () => {
-    setSearchQuery({ ...searchQuery });
-  };
-
-  useEffect(() => {
-    setSearchQuery(paramsForItemsSearch);
-  }, [paramsForItemsSearch]);
-
-  const { search, category } = searchQuery;
+  const { search, category } = paramsForItemsSearch;
 
   if (categoryLoader.error === NOT_FOUND_MESSAGE) throw new Error(NOT_FOUND_MESSAGE);
 
@@ -43,9 +33,8 @@ const Search: FC = () => {
         options={selectOptions}
         initialCategory={category}
         initialSearch={search}
-        onSubmit={handleSubmit}
       />
-      <SearchResults categoryLoader={categoryLoader} searchQuery={searchQuery} />
+      <SearchResults categoryLoader={categoryLoader} searchQuery={paramsForItemsSearch} />
       <Outlet />
     </div>
   );

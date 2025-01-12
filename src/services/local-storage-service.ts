@@ -24,7 +24,14 @@ export class LocalStorageService<DataType> {
   public getData<Key extends keyof DataType & string>(key: Key): DataType[Key] | null {
     const storageKey = this.getStorageKey(key);
     const data = localStorage.getItem(storageKey);
-    return data ? JSON.parse(data) : null;
+
+    if (data === null) return null;
+
+    try {
+      return JSON.parse(data);
+    } catch {
+      return null;
+    }
   }
 }
 

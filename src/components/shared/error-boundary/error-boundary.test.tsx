@@ -1,22 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
 import ErrorBoundary from './error-boundary';
 import { PropsWithChildren } from 'react';
-import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import userEvent from '@testing-library/user-event';
-import { PUBLIC_PATH } from '../../../constants/constants';
 
 const renderErrorBoundary = ({ children }: PropsWithChildren) =>
-  render(<ErrorBoundary>{children}</ErrorBoundary>, { wrapper: MemoryRouter });
+  render(<ErrorBoundary>{children}</ErrorBoundary>);
 
 describe('ErrorBoundary', () => {
   describe('when there is no error', () => {
     test('should render children', () => {
-      const testChild = <div>Test Child</div>;
+      const testChild = 'Test Child';
 
       renderErrorBoundary({ children: testChild });
 
-      expect(screen.getByText('Test Child')).toBeInTheDocument();
+      expect(screen.getByText(testChild)).toBeInTheDocument();
     });
   });
 
@@ -30,45 +27,15 @@ describe('ErrorBoundary', () => {
       };
 
       const { getByText, getByRole } = render(
-        <MemoryRouter>
-          <ErrorBoundary>
-            <ErrorThrowingComponent />
-          </ErrorBoundary>
-        </MemoryRouter>
-      );
-
-      expect(getByText(/error/i)).toBeInTheDocument();
-      expect(getByRole('button')).toBeInTheDocument();
-      expect(errorSpy.mock.calls.some((call) => call.includes(error))).toBeTruthy();
-      expect(errorSpy.mock.calls.some((call) => call.includes('errorInfo'))).toBeTruthy();
-    });
-  });
-
-  describe(`when error message is '${NOT_FOUND_MESSAGE}'`, () => {
-    test(`should navigate to not-found page`, () => {
-      const TestComponent = () => {
-        throw new Error(NOT_FOUND_MESSAGE);
-      };
-
-      const HomePage = () => (
         <ErrorBoundary>
-          <div>Home</div>
-          <TestComponent />
+          <ErrorThrowingComponent />
         </ErrorBoundary>
       );
 
-      const NotFoundPage = () => <div>Not found</div>;
-
-      render(
-        <MemoryRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path={`${PUBLIC_PATH}not-found-page`} element={<NotFoundPage />} />
-          </Routes>
-        </MemoryRouter>
-      );
-
-      expect(screen.getByText(/Not Found/i)).toBeInTheDocument();
+      expect(getByText(/error/i)).toBeInTheDocument();
+      expect(getByRole('button', { name: /Reload/i })).toBeInTheDocument();
+      expect(errorSpy.mock.calls.some((call) => call.includes(error))).toBeTruthy();
+      expect(errorSpy.mock.calls.some((call) => call.includes('errorInfo'))).toBeTruthy();
     });
   });
 
@@ -93,11 +60,9 @@ describe('ErrorBoundary', () => {
         throw new Error('Test error');
       };
       const { getByText } = render(
-        <MemoryRouter>
-          <ErrorBoundary>
-            <ErrorComponent />
-          </ErrorBoundary>
-        </MemoryRouter>
+        <ErrorBoundary>
+          <ErrorComponent />
+        </ErrorBoundary>
       );
       const reloadButton = getByText('Reload');
 

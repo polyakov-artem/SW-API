@@ -1,9 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import './error-boundary.scss';
 import Button from '../button/button';
-import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
-import { Navigate } from 'react-router';
-import { PUBLIC_PATH } from '../../../constants/constants';
 
 interface TErrorBoundaryProps {
   children?: ReactNode;
@@ -35,10 +32,6 @@ class ErrorBoundary extends Component<TErrorBoundaryProps, TErrorBoundaryState> 
 
   render() {
     const { error } = this.state;
-
-    if (error?.message === NOT_FOUND_MESSAGE) {
-      return <Navigate to={`${PUBLIC_PATH}not-found-page`} relative="path" />;
-    }
 
     if (error) {
       return (

@@ -12,7 +12,6 @@ import Planet from '../planet/planet';
 import Species from '../species/species';
 import Starship from '../starship/starship';
 import Vehicle from '../vehicle/vehicle';
-import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import { PUBLIC_PATH } from '../../../constants/constants';
 import useParamsForItemFetch from '../../../hooks/use-params-for-item-fetch';
 
@@ -54,8 +53,6 @@ const ItemDetails: FC = () => {
   const handleClick = useCallback(() => {
     navigate(`${PUBLIC_PATH}${category}/${location.search}`, { relative: 'path' });
   }, [navigate, category, location]);
-
-  if (itemLoader.error === NOT_FOUND_MESSAGE) throw new Error(NOT_FOUND_MESSAGE);
 
   return (
     <div className="item-details">

@@ -21,9 +21,11 @@ import Starship from '../starship/starship';
 import Vehicle from '../vehicle/vehicle';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import { PUBLIC_PATH } from '../../../constants/constants';
+import { getFirstPathNamePart } from '../../../utils/get-first-pathname-part';
 
 const ItemDetails: FC = () => {
-  const { category, itemId } = useParams();
+  const category = getFirstPathNamePart();
+  const { itemId } = useParams();
   const itemLoader = useItemLoader(String(category) as SwCategory, String(itemId));
   const { status, error, data } = itemLoader;
   const navigate = useNavigate();

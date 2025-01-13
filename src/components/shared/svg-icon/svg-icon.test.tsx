@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import SvgIcon, { SvgIconPropsType } from './svg-icon';
+import SvgIcon, { TSvgIconProps } from './svg-icon';
 
 describe('SvgIcon', () => {
   describe('when classMods, className are passed', () => {
@@ -25,4 +25,4 @@ describe('SvgIcon', () => {
   });
 });
 
-const renderIcon = (props: SvgIconPropsType) => render(<SvgIcon {...props} />);
+const renderIcon = (props: TSvgIconProps) => render(<SvgIcon {...props} />);

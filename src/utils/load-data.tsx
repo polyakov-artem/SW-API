@@ -9,13 +9,13 @@ export type IdleState = { status: LoadingStatus.idle; data: null; error: null };
 export type LoadingState = { status: LoadingStatus.loading; data: null; error: null };
 export type ErrorState = { status: LoadingStatus.error; data: null; error: string };
 
-export type SuccessState<DataType> = {
+export type SuccessState<TData> = {
   status: LoadingStatus.success;
-  data: DataType;
+  data: TData;
   error: null;
 };
 
-export type LoaderState<DataType> = IdleState | SuccessState<DataType> | ErrorState | LoadingState;
+export type LoaderState<TData> = IdleState | SuccessState<TData> | ErrorState | LoadingState;
 
 export enum LoadingStatus {
   idle = 'idle',
@@ -32,7 +32,7 @@ export function getLoadingState(): LoadingState {
   return { status: LoadingStatus.loading, data: null, error: null };
 }
 
-export function getSuccessState<DataType>(data: DataType): SuccessState<DataType> {
+export function getSuccessState<TData>(data: TData): SuccessState<TData> {
   return {
     status: LoadingStatus.success,
     data,
@@ -44,9 +44,9 @@ export function getErrorState(error: string): ErrorState {
   return { status: LoadingStatus.error, data: null, error };
 }
 
-export async function loadData<DataType>(
-  requestFunction: () => Promise<DataType>
-): Promise<SuccessState<DataType> | ErrorState> {
+export async function loadData<TData>(
+  requestFunction: () => Promise<TData>
+): Promise<SuccessState<TData> | ErrorState> {
   let fetchState;
 
   try {

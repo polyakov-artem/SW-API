@@ -1,5 +1,5 @@
 import { ComponentProps, FC } from 'react';
-import { ClassModsType } from '../../../types/types';
+import { TClassMods } from '../../../types/types';
 import './select.scss';
 import { getClassNames } from '../../../utils/getClassNames';
 import classNames from 'classnames';
@@ -8,18 +8,18 @@ export const BASE_CLASS_NAME = 'select';
 export const selectControlClassName = `${BASE_CLASS_NAME}__control`;
 export const selectOptionClassName = `${BASE_CLASS_NAME}__option`;
 
-export type OptionsType = Array<{ label: string; value: string }>;
+export type TOptions = Array<{ label: string; value: string }>;
 
-export interface SelectPropsType extends ComponentProps<'div'> {
-  classMods?: ClassModsType & {
+export interface TSelectProps extends ComponentProps<'div'> {
+  classMods?: TClassMods & {
     view?: 'primary';
     invalid?: boolean;
   };
-  options?: OptionsType;
+  options?: TOptions;
   controlProps?: ComponentProps<'select'>;
 }
 
-const Select: FC<SelectPropsType> = (props) => {
+const Select: FC<TSelectProps> = (props) => {
   const { classMods, className, options = [], controlProps, ...wrapIntrinsicProps } = props;
 
   const classes = getClassNames({

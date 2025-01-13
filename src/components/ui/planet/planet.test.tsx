@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { planetData } from '../../../../tests/mocks/constants';
-import { PlanetType } from '../../../types/types';
+import { TPlanet } from '../../../types/types';
 import Planet from './planet';
 
 describe('Planet', () => {
@@ -21,9 +21,7 @@ describe('Planet', () => {
       render(<Planet {...planetData} />);
 
       keysForRender.forEach((key) => {
-        const matches = screen.getAllByText(
-          new RegExp(`${planetData[key as keyof PlanetType]}`, 'i')
-        );
+        const matches = screen.getAllByText(new RegExp(`${planetData[key as keyof TPlanet]}`, 'i'));
         matches.forEach((el) => expect(el).toBeInTheDocument());
       });
     });

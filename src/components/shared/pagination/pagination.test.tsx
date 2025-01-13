@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Pagination, {
-  PaginationPropsType,
+  TPaginationProps,
   btnDisabledClassName,
   btnSelectedClassName,
 } from './pagination';
@@ -8,13 +8,13 @@ import userEvent from '@testing-library/user-event';
 
 import reactRouterDom, { BrowserRouter } from 'react-router-dom';
 
-const defaultProps: PaginationPropsType = {
+const defaultProps: TPaginationProps = {
   totalCount: 2,
   perPageCount: 1,
   maxNumOfVisiblePages: 7,
 };
 
-const renderPagination = (props: PaginationPropsType = defaultProps) => ({
+const renderPagination = (props: TPaginationProps = defaultProps) => ({
   ...render(<Pagination {...props} />, { wrapper: BrowserRouter }),
   user: userEvent.setup(),
 });

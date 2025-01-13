@@ -2,7 +2,7 @@ import { Component, ReactNode } from 'react';
 import Button from '../../shared/button/button';
 import './error-component.scss';
 
-export interface ErrorComponentPropsType {
+export interface TErrorComponentProps {
   children?: ReactNode;
 }
 
@@ -10,7 +10,7 @@ export interface ErrorComponentStateType {
   error: boolean;
 }
 
-class ErrorComponent extends Component<ErrorComponentPropsType, ErrorComponentStateType> {
+class ErrorComponent extends Component<TErrorComponentProps, ErrorComponentStateType> {
   state = { error: false };
 
   handlerClick = () => {

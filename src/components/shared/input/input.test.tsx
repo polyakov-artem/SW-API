@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import Input, { InputPropsType } from './input';
+import Input, { TInputProps } from './input';
 
 const iconId = 'icon';
 const icon = <span data-testid={iconId}>♫</span>;
 const inputTestId = 'input';
 
-const renderInput = ({ ...props }: InputPropsType) =>
+const renderInput = ({ ...props }: TInputProps) =>
   render(<Input {...props} data-testid={inputTestId} />);
 
 const getInput = () => screen.getByTestId(inputTestId);

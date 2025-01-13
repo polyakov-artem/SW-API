@@ -3,14 +3,7 @@ import { FC, useCallback, useMemo } from 'react';
 import Button from '../../shared/button/button';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import useItemLoader from '../../../hooks/use-item-loader';
-import {
-  FilmType,
-  ManType,
-  PlanetType,
-  SpeciesType,
-  StarshipType,
-  VehicleType,
-} from '../../../types/types';
+import { TFilm, TMan, TPlanet, TSpecies, TStarship, TVehicle } from '../../../types/types';
 import Loader from '../../shared/loader/loader';
 import { SwCategory } from '../../../enums/enums';
 import Film from '../film/film';
@@ -34,12 +27,12 @@ const ItemDetails: FC = () => {
   const element = useMemo(() => {
     if (category && data) {
       const cases = {
-        [SwCategory.films]: <Film {...(data as FilmType)} />,
-        [SwCategory.people]: <Man {...(data as ManType)} />,
-        [SwCategory.planets]: <Planet {...(data as PlanetType)} />,
-        [SwCategory.species]: <Species {...(data as SpeciesType)} />,
-        [SwCategory.starships]: <Starship {...(data as StarshipType)} />,
-        [SwCategory.vehicles]: <Vehicle {...(data as VehicleType)} />,
+        [SwCategory.films]: <Film {...(data as TFilm)} />,
+        [SwCategory.people]: <Man {...(data as TMan)} />,
+        [SwCategory.planets]: <Planet {...(data as TPlanet)} />,
+        [SwCategory.species]: <Species {...(data as TSpecies)} />,
+        [SwCategory.starships]: <Starship {...(data as TStarship)} />,
+        [SwCategory.vehicles]: <Vehicle {...(data as TVehicle)} />,
       };
 
       return cases[category as SwCategory];

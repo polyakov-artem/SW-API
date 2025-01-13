@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { manData } from '../../../../tests/mocks/constants';
-import { ManType } from '../../../types/types';
+import { TMan } from '../../../types/types';
 import Man from './man';
 
 describe('Man', () => {
@@ -20,7 +20,7 @@ describe('Man', () => {
       render(<Man {...manData} />);
 
       keysForRender.forEach((key) => {
-        const matches = screen.getAllByText(new RegExp(`${manData[key as keyof ManType]}`, 'i'));
+        const matches = screen.getAllByText(new RegExp(`${manData[key as keyof TMan]}`, 'i'));
         matches.forEach((el) => expect(el).toBeInTheDocument());
       });
     });

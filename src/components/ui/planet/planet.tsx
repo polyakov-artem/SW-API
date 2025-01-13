@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { PlanetType } from '../../../types/types';
+import { TPlanet } from '../../../types/types';
 
-const Planet: FC<PlanetType> = ({
+const Planet: FC<TPlanet> = ({
   name,
   diameter,
   rotation_period,

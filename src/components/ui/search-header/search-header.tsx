@@ -1,31 +1,31 @@
 import { ChangeEvent, FC, useCallback, useState } from 'react';
-import Select, { OptionsType } from '../../shared/select/select';
+import Select, { TOptions } from '../../shared/select/select';
 import Input from '../../shared/input/input';
 import Button from '../../shared/button/button';
 import SvgIcon from '../../shared/svg-icon/svg-icon';
-import { SavedSearchType, SubmitHandlerType } from '../../../types/types';
+import { TSavedSearch, TSubmitHandler } from '../../../types/types';
 import './search-header.scss';
 import { SwCategory } from '../../../enums/enums';
 import swService from '../../../services/sw-service';
 import { useNavigate } from 'react-router';
 import { PUBLIC_PATH } from '../../../constants/constants';
 
-export interface SearchHeaderPropsType {
-  options: OptionsType;
+export interface TSearchHeaderProps {
+  options: TOptions;
   initialCategory: SwCategory;
   initialSearch: string;
   onSubmit?: () => void;
   className?: string;
 }
 
-const SearchHeader: FC<SearchHeaderPropsType> = ({
+const SearchHeader: FC<TSearchHeaderProps> = ({
   options,
   initialCategory,
   initialSearch,
   onSubmit,
   className,
 }) => {
-  const [state, setState] = useState<SavedSearchType>({
+  const [state, setState] = useState<TSavedSearch>({
     search: initialSearch || '',
     category: options.find((option) => option.value === initialCategory)
       ? initialCategory
@@ -45,7 +45,7 @@ const SearchHeader: FC<SearchHeaderPropsType> = ({
     });
   }, []);
 
-  const handleSubmit: SubmitHandlerType = useCallback(
+  const handleSubmit: TSubmitHandler = useCallback(
     (e) => {
       e.preventDefault();
       const { search, category } = state;

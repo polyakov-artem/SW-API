@@ -1,13 +1,6 @@
-import {
-  FilmType,
-  ManType,
-  PlanetType,
-  SpeciesType,
-  StarshipType,
-  VehicleType,
-} from '../../src/types/types';
+import { TFilm, TMan, TPlanet, TSpecies, TStarship, TVehicle } from '../../src/types/types';
 
-export const filmData: FilmType = {
+export const filmData: TFilm = {
   title: 'The Phantom Menace',
   episode_id: 1,
   opening_crawl:
@@ -99,7 +92,7 @@ export const filmData: FilmType = {
   url: 'https://swapi.dev/api/films/4/',
 };
 
-export const manData: ManType = {
+export const manData: TMan = {
   name: 'Leia Organa',
   height: '150',
   mass: '49',
@@ -123,7 +116,7 @@ export const manData: ManType = {
   url: 'https://swapi.dev/api/people/5/',
 };
 
-export const planetData: PlanetType = {
+export const planetData: TPlanet = {
   name: 'Naboo',
   rotation_period: '26',
   orbital_period: '312',
@@ -157,7 +150,7 @@ export const planetData: PlanetType = {
   url: 'https://swapi.dev/api/planets/8/',
 };
 
-export const speciesData: SpeciesType = {
+export const speciesData: TSpecies = {
   name: 'Droid',
   classification: 'artificial',
   designation: 'sentient',
@@ -187,7 +180,7 @@ export const speciesData: SpeciesType = {
   url: 'https://swapi.dev/api/species/2/',
 };
 
-export const starshipData: StarshipType = {
+export const starshipData: TStarship = {
   name: 'Millennium Falcon',
   model: 'YT-1300 light freighter',
   manufacturer: 'Corellian Engineering Corporation',
@@ -217,7 +210,7 @@ export const starshipData: StarshipType = {
   url: 'https://swapi.dev/api/starships/10/',
 };
 
-export const vehicleData: VehicleType = {
+export const vehicleData: TVehicle = {
   name: 'TIE bomber',
   model: 'TIE/sa bomber',
   manufacturer: 'Sienar Fleet Systems',

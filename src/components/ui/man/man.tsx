@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { ManType } from '../../../types/types';
+import { TMan } from '../../../types/types';
 
-const Man: FC<ManType> = ({
+const Man: FC<TMan> = ({
   name,
   birth_year,
   eye_color,

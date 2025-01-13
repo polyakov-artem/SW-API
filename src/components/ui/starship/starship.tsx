@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { StarshipType } from '../../../types/types';
+import { TStarship } from '../../../types/types';
 
-const Starship: FC<StarshipType> = ({
+const Starship: FC<TStarship> = ({
   name,
   model,
   starship_class,

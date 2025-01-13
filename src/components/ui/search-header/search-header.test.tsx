@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import SearchHeader, { SearchHeaderPropsType } from './search-header';
+import SearchHeader, { TSearchHeaderProps } from './search-header';
 import { SwCategory } from '../../../enums/enums';
 import { BrowserRouter } from 'react-router-dom';
 import { assertExistance, createGetter } from '../../../../tests/utils/test-utils';
@@ -24,7 +24,7 @@ const defaultProps = {
   className,
 };
 
-const renderSearchHeader = (props: SearchHeaderPropsType = defaultProps) => {
+const renderSearchHeader = (props: TSearchHeaderProps = defaultProps) => {
   return {
     ...render(<SearchHeader {...props} />, { wrapper: BrowserRouter }),
     user: userEvent.setup(),

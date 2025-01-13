@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { starshipData } from '../../../../tests/mocks/constants';
-import { StarshipType } from '../../../types/types';
+import { TStarship } from '../../../types/types';
 import Starship from './starship';
 
 describe('Starship', () => {
@@ -26,7 +26,7 @@ describe('Starship', () => {
 
       keysForRender.forEach((key) => {
         const matches = screen.getAllByText(
-          new RegExp(`${starshipData[key as keyof StarshipType]}`, 'i')
+          new RegExp(`${starshipData[key as keyof TStarship]}`, 'i')
         );
         matches.forEach((el) => expect(el).toBeInTheDocument());
       });

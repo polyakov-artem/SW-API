@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { loadSavedSearch } from '../utils/load-saved-search';
-import { ItemsSearchQueryType } from '../types/types';
+import { TItemsQuery } from '../types/types';
 
-export const useSavedSearch = (): ItemsSearchQueryType | null => {
+export const useSavedSearch = (): TItemsQuery | null => {
   return useMemo(() => {
     const { category, search } = loadSavedSearch();
 

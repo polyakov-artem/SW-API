@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { VehicleType } from '../../../types/types';
+import { TVehicle } from '../../../types/types';
 
-const Vehicle: FC<VehicleType> = ({
+const Vehicle: FC<TVehicle> = ({
   name,
   model,
   vehicle_class,

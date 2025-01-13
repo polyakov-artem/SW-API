@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { FilmType } from '../../../types/types';
+import { TFilm } from '../../../types/types';
 
-const Film: FC<FilmType> = ({
+const Film: FC<TFilm> = ({
   title,
   episode_id,
   opening_crawl,

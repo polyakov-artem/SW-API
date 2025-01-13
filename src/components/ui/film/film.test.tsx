@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { filmData } from '../../../../tests/mocks/constants';
-import { FilmType } from '../../../types/types';
+import { TFilm } from '../../../types/types';
 import Film from './film';
 
 describe('Film', () => {
@@ -18,7 +18,7 @@ describe('Film', () => {
       render(<Film {...filmData} />);
 
       keysForRender.forEach((key) => {
-        let regExpText = `${filmData[key as keyof FilmType]}`;
+        let regExpText = `${filmData[key as keyof TFilm]}`;
 
         if (key === 'opening_crawl') regExpText = regExpText.slice(0, 10);
 

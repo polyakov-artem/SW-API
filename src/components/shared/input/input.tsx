@@ -1,5 +1,5 @@
 import './input.scss';
-import { ClassModsType } from '../../../types/types';
+import { TClassMods } from '../../../types/types';
 import { ComponentProps, FC, ReactNode } from 'react';
 import { getClassNames } from '../../../utils/getClassNames';
 
@@ -7,9 +7,9 @@ export const BASE_CLASS_NAME = 'input';
 export const inputControlClassName = `${BASE_CLASS_NAME}__control`;
 export const inputIconClassName = `${BASE_CLASS_NAME}__icon`;
 
-export interface InputPropsType extends ComponentProps<'div'> {
+export interface TInputProps extends ComponentProps<'div'> {
   icon?: ReactNode;
-  classMods?: ClassModsType & {
+  classMods?: TClassMods & {
     'icon-after'?: boolean;
     'icon-before'?: boolean;
     invalid?: boolean;
@@ -18,7 +18,7 @@ export interface InputPropsType extends ComponentProps<'div'> {
   controlProps?: ComponentProps<'input'>;
 }
 
-const Input: FC<InputPropsType> = (props) => {
+const Input: FC<TInputProps> = (props) => {
   const { icon, className, classMods, controlProps, ...wrapIntrinsicProps } = props;
 
   const classes = getClassNames({

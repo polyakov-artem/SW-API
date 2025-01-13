@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { vehicleData } from '../../../../tests/mocks/constants';
 import Vehicle from './vehicle';
-import { VehicleType } from '../../../types/types';
+import { TVehicle } from '../../../types/types';
 
 describe('Vehicle', () => {
   describe('when data is passed', () => {
@@ -24,7 +24,7 @@ describe('Vehicle', () => {
 
       keysForRender.forEach((key) => {
         const matches = screen.getAllByText(
-          new RegExp(`${vehicleData[key as keyof VehicleType]}`, 'i')
+          new RegExp(`${vehicleData[key as keyof TVehicle]}`, 'i')
         );
         matches.forEach((el) => expect(el).toBeInTheDocument());
       });

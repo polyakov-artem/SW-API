@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './results-item.scss';
-import { ItemsSearchQueryType } from '../../../types/types';
+import { TItemsQuery } from '../../../types/types';
 import { PUBLIC_PATH } from '../../../constants/constants';
 
 export interface ResultsItemProps {
   title: string;
   url: string;
-  searchQuery: ItemsSearchQueryType;
+  searchQuery: TItemsQuery;
 }
 
 export const BASE_CLASS_NAME = 'results-item';

@@ -1,8 +1,8 @@
 import { toCamelCase } from '../../src/utils/to-camel-case';
 
-export type getter = () => HTMLElement[] | HTMLElement;
+export type TGetter = () => HTMLElement[] | HTMLElement;
 
-export const assertExistance = (...getters: Array<getter>) => {
+export const assertExistance = (...getters: Array<TGetter>) => {
   if (getters.length === 0) throw new Error('Should pass at least one getter');
 
   const elements = {} as Record<string, HTMLElement[] | HTMLElement>;
@@ -23,13 +23,13 @@ export const assertExistance = (...getters: Array<getter>) => {
   return elements;
 };
 
-export const assertAbsence = (...getters: Array<getter>) => {
+export const assertAbsence = (...getters: Array<TGetter>) => {
   if (getters.length === 0) throw new Error('Should pass at least one getter');
 
   getters.forEach((getter) => expect(getter).toThrow());
 };
 
-export const assertElements = (params: { exist: getter[]; absent: getter[] }) => {
+export const assertElements = (params: { exist: TGetter[]; absent: TGetter[] }) => {
   const elements = assertExistance(...params.exist);
   assertAbsence(...params.absent);
 

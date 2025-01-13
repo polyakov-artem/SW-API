@@ -1,6 +1,6 @@
 import { getArrayOfNumbers } from '../../../utils/get-array-of-numbers';
 
-export type getPaginationRangeParamsType = {
+export type TPaginationRangeParams = {
   numberOfPages: number;
   numOfVisibleButtons: number;
   currentPage: number;
@@ -12,7 +12,7 @@ export const getPaginationRange = ({
   numberOfPages,
   numOfVisibleButtons,
   currentPage,
-}: getPaginationRangeParamsType) => {
+}: TPaginationRangeParams) => {
   if (numberOfPages <= numOfVisibleButtons) {
     return getArrayOfNumbers(1, numberOfPages);
   }

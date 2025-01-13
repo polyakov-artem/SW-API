@@ -1,13 +1,13 @@
 import { FC, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import './search-results.scss';
 import { LoadingStatus } from '../../../utils/load-data';
-import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
+import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
 import Pagination from '../../shared/pagination/pagination';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import SearchResultsContent from '../search-results-content/search-results-content';
 import { PUBLIC_PATH } from '../../../constants/constants';
 
-const SearchResults: FC<CategoryLoaderAndSearchQueryType> = ({ categoryLoader, searchQuery }) => {
+const SearchResults: FC<TCategoryLoaderAndSearchQuery> = ({ categoryLoader, searchQuery }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { itemId } = useParams();

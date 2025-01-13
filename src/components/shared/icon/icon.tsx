@@ -1,15 +1,15 @@
 import './icon.scss';
 import { ComponentProps, FC } from 'react';
 import { getClassNames } from '../../../utils/getClassNames';
-import { ClassModsType } from '../../../types/types';
+import { TClassMods } from '../../../types/types';
 
 export const BASE_CLASS_NAME = 'icon';
 
-export interface IconPropsType extends ComponentProps<'span'> {
-  classMods?: ClassModsType;
+export interface TIconProps extends ComponentProps<'span'> {
+  classMods?: TClassMods;
 }
 
-const Icon: FC<IconPropsType> = (props) => {
+const Icon: FC<TIconProps> = (props) => {
   const { classMods, className, ...intrinsicProps } = props;
 
   const classes = getClassNames({

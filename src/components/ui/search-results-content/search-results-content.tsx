@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
+import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
 import { LoadingStatus } from '../../../utils/load-data';
 import Loader from '../../shared/loader/loader';
 import ResultsList from '../results-list/results-list';
 import { capitalizeWord } from '../../../utils/capitalize-word';
 
-const SearchResultsContent: FC<CategoryLoaderAndSearchQueryType> = ({
+const SearchResultsContent: FC<TCategoryLoaderAndSearchQuery> = ({
   categoryLoader,
   searchQuery,
 }) => {

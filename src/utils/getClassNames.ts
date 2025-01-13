@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 
-export interface GetClassNamesParamsType {
+export interface TGetClassNamesParams {
   baseClass: string;
   classMods?: Record<string, string | boolean | undefined>;
   mix?: string;
 }
 
-export const getClassNames = ({ baseClass, classMods, mix }: GetClassNamesParamsType) => {
+export const getClassNames = ({ baseClass, classMods, mix }: TGetClassNamesParams) => {
   const modificationClasses = Object.entries(classMods || {}).map(([modKey, modValue]) => {
     const typeOfValue = typeof modValue;
 

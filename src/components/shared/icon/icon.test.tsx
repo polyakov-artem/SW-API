@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Icon, { IconPropsType } from './icon';
+import Icon, { TIconProps } from './icon';
 
 describe('Icon', () => {
   describe('when classMods, className are passed', () => {
@@ -21,4 +21,4 @@ describe('Icon', () => {
   });
 });
 
-const renderIcon = (props: IconPropsType) => render(<Icon {...props} />);
+const renderIcon = (props: TIconProps) => render(<Icon {...props} />);

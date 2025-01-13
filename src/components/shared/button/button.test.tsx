@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import Button, { ButtonPropsType } from './button';
+import Button, { TButtonProps } from './button';
 
 const iconId = 'icon';
 const icon = <span data-testid={iconId}>♫</span>;
 const text = 'Click me';
 
-const renderButton = ({ children, ...props }: ButtonPropsType) =>
+const renderButton = ({ children, ...props }: TButtonProps) =>
   render(<Button {...props}>{children}</Button>);
 
 const getButton = () => screen.getByRole('button');

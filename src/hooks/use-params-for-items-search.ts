@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SwCategory } from '../enums/enums';
-import { ItemsSearchQueryType } from '../types/types';
+import { TItemsQuery } from '../types/types';
 import { getFirstPathNamePart } from '../utils/get-first-pathname-part';
 
-const useParamsForItemsSearch = (): ItemsSearchQueryType => {
+const useParamsForItemsSearch = (): TItemsQuery => {
   const [queries] = useSearchParams();
   const category = getFirstPathNamePart();
   const search = queries.get('search');

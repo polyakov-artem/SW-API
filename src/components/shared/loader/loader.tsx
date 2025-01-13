@@ -1,17 +1,17 @@
 import './loader.scss';
 import { ComponentProps, FC } from 'react';
 
-import { ClassModsType } from '../../../types/types';
+import { TClassMods } from '../../../types/types';
 import { getClassNames } from '../../../utils/getClassNames';
 
 export const BASE_CLASS_NAME = 'loader';
 export const loaderContainerClassName = `${BASE_CLASS_NAME}__container`;
 
-export interface LoaderPropsType extends ComponentProps<'span'> {
-  classMods?: ClassModsType;
+export interface TLoaderProps extends ComponentProps<'span'> {
+  classMods?: TClassMods;
 }
 
-const Loader: FC<LoaderPropsType> = (props) => {
+const Loader: FC<TLoaderProps> = (props) => {
   const { classMods, className, ...intrinsicProps } = props;
 
   const classes = getClassNames({

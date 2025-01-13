@@ -1,27 +1,24 @@
-import { CategoryItemType, EndpointsResponsesType, SavedSearchType } from '../types/types';
+import { SwCategory } from '../enums/enums';
+import {
+  TFetchItemResponsesMap,
+  TGetItemsResponsesMap,
+  TItemsQuery,
+  TSavedSearch,
+  TItemQuery,
+} from '../types/types';
 import httpService from './http-service';
 import localStorageService from './local-storage-service';
 
-export type SearchParamsType<T> = {
-  category: T;
-  search?: string;
-  page?: string;
+export type TSearchParams = TItemsQuery & {
   signal?: AbortSignal;
 };
 
-export type FetchItemParamsType<T> = {
-  category: T;
-  itemId: string;
+export type TFetchItemParams = TItemQuery & {
   signal?: AbortSignal;
 };
 
-async function search<T extends keyof EndpointsResponsesType>({
-  category,
-  signal,
-  search,
-  page,
-}: SearchParamsType<T>) {
-  const response = await httpService.get<EndpointsResponsesType[T]>(category, {
+async function search({ category, signal, search, page }: TSearchParams) {
+  const response = await httpService.get<TGetItemsResponsesMap[SwCategory]>(category, {
     params: {
       page,
       search,
@@ -31,18 +28,17 @@ async function search<T extends keyof EndpointsResponsesType>({
   return response.data;
 }
 
-async function fetchItem<T extends keyof CategoryItemType>({
-  category,
-  itemId,
-  signal,
-}: FetchItemParamsType<T>) {
-  const response = await httpService.get<CategoryItemType[T]>(`${category}/${itemId}`, {
-    signal,
-  });
+async function fetchItem({ category, itemId, signal }: TFetchItemParams) {
+  const response = await httpService.get<TFetchItemResponsesMap[SwCategory]>(
+    `${category}/${itemId}`,
+    {
+      signal,
+    }
+  );
   return response.data;
 }
 
-const saveSearch = ({ category, search }: SavedSearchType) => {
+const saveSearch = ({ category, search }: TSavedSearch) => {
   localStorageService.saveData('category', category);
   localStorageService.saveData('search', search);
 };

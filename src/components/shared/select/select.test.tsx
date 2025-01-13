@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import Select, { SelectPropsType } from './select';
+import Select, { TSelectProps } from './select';
 import { selectOptions } from '../../../constants/constants';
 import userEvent from '@testing-library/user-event';
 import { capitalizeWord } from '../../../utils/capitalize-word';
 
 const selectTestId = 'select';
 
-const renderSelect = ({ ...props }: SelectPropsType) => {
+const renderSelect = ({ ...props }: TSelectProps) => {
   const renderResult = render(
     <Select controlProps={{ onChange: () => {} }} data-testid={selectTestId} {...props} />
   );

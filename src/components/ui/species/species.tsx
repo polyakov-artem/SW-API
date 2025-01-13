@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { SpeciesType } from '../../../types/types';
+import { TSpecies } from '../../../types/types';
 
-const Species: FC<SpeciesType> = ({
+const Species: FC<TSpecies> = ({
   name,
   classification,
   designation,

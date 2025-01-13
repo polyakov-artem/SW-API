@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { speciesData } from '../../../../tests/mocks/constants';
-import { SpeciesType } from '../../../types/types';
+import { TSpecies } from '../../../types/types';
 import Species from './species';
 
 describe('Species', () => {
@@ -22,7 +22,7 @@ describe('Species', () => {
 
       keysForRender.forEach((key) => {
         const matches = screen.getAllByText(
-          new RegExp(`${speciesData[key as keyof SpeciesType]}`, 'i')
+          new RegExp(`${speciesData[key as keyof TSpecies]}`, 'i')
         );
         matches.forEach((el) => expect(el).toBeInTheDocument());
       });

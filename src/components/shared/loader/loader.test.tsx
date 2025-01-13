@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
-import Loader, { LoaderPropsType } from './loader';
+import Loader, { TLoaderProps } from './loader';
 
-const renderLoader = ({ ...props }: LoaderPropsType) => render(<Loader {...props} />);
+const renderLoader = ({ ...props }: TLoaderProps) => render(<Loader {...props} />);
 
 describe('Loader', () => {
   describe('when className, classMods are passed', () => {

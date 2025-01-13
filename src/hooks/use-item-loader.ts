@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import swService from '../services/sw-service';
-import { CategoryItemType } from '../types/types';
+import { TFetchItemResponsesMap } from '../types/types';
 import {
   getLoadingState,
   loadData,
@@ -9,10 +9,10 @@ import {
 } from '../utils/load-data';
 import { SwCategory } from '../enums/enums';
 
-export type ItemLoaderStateType = LoaderState<CategoryItemType[SwCategory]>;
+export type TItemLoaderState = LoaderState<TFetchItemResponsesMap[SwCategory]>;
 
 const useItemLoader = (category: SwCategory, itemId: string) => {
-  const [itemLoader, setItemLoader] = useState<ItemLoaderStateType>(getLoadingState);
+  const [itemLoader, setItemLoader] = useState<TItemLoaderState>(getLoadingState);
 
   const abortRef = useRef(new AbortController());
   const isMountedRef = useRef(false);

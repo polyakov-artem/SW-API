@@ -5,16 +5,16 @@ import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import { Navigate } from 'react-router';
 import { PUBLIC_PATH } from '../../../constants/constants';
 
-interface ErrorBoundaryPropsType {
+interface TErrorBoundaryProps {
   children?: ReactNode;
 }
 
-interface ErrorBoundaryStateType {
+interface TErrorBoundaryState {
   error: Error | null;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryStateType> {
-  constructor(props: ErrorBoundaryPropsType) {
+class ErrorBoundary extends Component<TErrorBoundaryProps, TErrorBoundaryState> {
+  constructor(props: TErrorBoundaryProps) {
     super(props);
     this.state = {
       error: null,

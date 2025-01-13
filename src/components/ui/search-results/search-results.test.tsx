@@ -1,6 +1,6 @@
 import { getAllByRole, getByRole, screen } from '@testing-library/react';
 import { assertAbsence, assertExistance, createGetter } from '../../../../tests/utils/test-utils';
-import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
+import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
 import SearchResults from './search-results';
 import { SwCategory } from '../../../enums/enums';
 import { responses } from '../../../../tests/mocks/constants';
@@ -35,7 +35,7 @@ const secondProps = {
   categoryLoader: getSuccessState(responses.notEmptySearch.category.films[1]),
 };
 
-const renderSearchResults = (props: CategoryLoaderAndSearchQueryType = firstProps) => {
+const renderSearchResults = (props: TCategoryLoaderAndSearchQuery = firstProps) => {
   const { category, search, page } = props.searchQuery;
 
   return renderWithRouter(

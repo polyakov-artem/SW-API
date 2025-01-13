@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SearchResultsContent from './search-results-content';
-import { CategoryLoaderAndSearchQueryType } from '../../../types/types';
+import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
 import { getErrorState, getLoadingState, getSuccessState } from '../../../utils/load-data';
 import { responses } from '../../../../tests/mocks/constants';
 import { SwCategory } from '../../../enums/enums';
@@ -20,7 +20,7 @@ const searchQuery = {
   category,
 };
 
-const renderSearchResultsContent = (props: CategoryLoaderAndSearchQueryType) =>
+const renderSearchResultsContent = (props: TCategoryLoaderAndSearchQuery) =>
   render(<SearchResultsContent {...props} />, { wrapper: MemoryRouter });
 
 const getLoader = () => screen.getByTestId('loader');

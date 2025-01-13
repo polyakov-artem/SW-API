@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import ResultsItem, { BASE_CLASS_NAME, itemLink, ResultsItemProps } from './results-item';
 import { SwCategory } from '../../../enums/enums';
-import { ItemsSearchQueryType } from '../../../types/types';
+import { TItemsQuery } from '../../../types/types';
 import { MemoryRouter } from 'react-router';
 import { PUBLIC_PATH } from '../../../constants/constants';
 
@@ -10,7 +10,7 @@ const search = '';
 const page = '1';
 const id = 4;
 
-const searchQuery: ItemsSearchQueryType = { category, search, page };
+const searchQuery: TItemsQuery = { category, search, page };
 
 const props: ResultsItemProps = {
   title: 'The Phantom Menace',

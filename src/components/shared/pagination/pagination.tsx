@@ -14,7 +14,7 @@ export const btnDisabledClassName = `${BASE_CLASS_NAME}__btn_disabled`;
 export const nextBtnClassName = `${BASE_CLASS_NAME}__btn-next`;
 export const prevBtnClassName = `${BASE_CLASS_NAME}__btn-prev`;
 
-export type PaginationPropsType = {
+export type TPaginationProps = {
   totalCount: number | undefined;
   perPageCount: number;
   maxNumOfVisiblePages?: number;
@@ -25,7 +25,7 @@ export type PaginationPropsType = {
 
 const MINIMAL_NUMBER_MESSAGE = 'Number of visible pages should be at least 7';
 
-const Pagination: FC<PaginationPropsType> = ({
+const Pagination: FC<TPaginationProps> = ({
   perPageCount,
   className,
   totalCount = 0,

@@ -2,53 +2,53 @@ import { ComponentProps } from 'react';
 import { SwCategory } from '../enums/enums';
 import { LoaderState } from '../utils/load-data';
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
-export type ClassModsType = Record<string, string | boolean | undefined>;
+export type TSize = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
+export type TClassMods = Record<string, string | boolean | undefined>;
 
-export type InputChangeHandlerType = NonNullable<ComponentProps<'input'>['onChange']>;
-export type SelectChangeHandlerType = NonNullable<ComponentProps<'select'>['onChange']>;
-export type SubmitHandlerType = NonNullable<ComponentProps<'form'>['onSubmit']>;
+export type TInputChangeHandler = NonNullable<ComponentProps<'input'>['onChange']>;
+export type TSelectChangeHandler = NonNullable<ComponentProps<'select'>['onChange']>;
+export type TSubmitHandler = NonNullable<ComponentProps<'form'>['onSubmit']>;
 
-export type SavedSearchType = {
+export type TSavedSearch = {
   search: string;
   category: SwCategory;
 };
 
-export type ItemsSearchQueryType = {
+export type TItemsQuery = {
   category: SwCategory;
   search: string;
   page: string;
 };
 
-export type CategoryLoaderAndSearchQueryType = {
-  searchQuery: ItemsSearchQueryType;
-  categoryLoader: LoaderState<CorrectResponseDataType>;
+export type TItemQuery = {
+  category: SwCategory;
+  itemId: string;
 };
 
-export type ResponseDataType<T> = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Array<T>;
+export type TCategoryLoaderAndSearchQuery = {
+  searchQuery: TItemsQuery;
+  categoryLoader: LoaderState<TGetItemsResponsesMap[SwCategory]>;
 };
 
-export type EndpointsResponsesType = {
-  [Category in SwCategory]: ResponseDataType<CategoryItemType[Category]>;
+export type TGetItemsResponsesMap = {
+  [Category in SwCategory]: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Array<TFetchItemResponsesMap[Category]>;
+  };
 };
 
-export type CategoryItemType = {
-  [SwCategory.films]: FilmType;
-  [SwCategory.people]: ManType;
-  [SwCategory.planets]: PlanetType;
-  [SwCategory.species]: SpeciesType;
-  [SwCategory.starships]: StarshipType;
-  [SwCategory.vehicles]: VehicleType;
+export type TFetchItemResponsesMap = {
+  [SwCategory.films]: TFilm;
+  [SwCategory.people]: TMan;
+  [SwCategory.planets]: TPlanet;
+  [SwCategory.species]: TSpecies;
+  [SwCategory.starships]: TStarship;
+  [SwCategory.vehicles]: TVehicle;
 };
 
-export type CorrectResponseDataType = EndpointsResponsesType[SwCategory];
-export type CorrectResponseResultsType = CorrectResponseDataType['results'];
-
-export interface ManType {
+export interface TMan {
   name: string;
   birth_year: string;
   eye_color: string;
@@ -67,7 +67,7 @@ export interface ManType {
   edited: string;
 }
 
-export interface FilmType {
+export interface TFilm {
   title: string;
   episode_id: number;
   opening_crawl: string;
@@ -84,7 +84,7 @@ export interface FilmType {
   edited: string;
 }
 
-export interface VehicleType {
+export interface TVehicle {
   name: string;
   model: string;
   vehicle_class: string;
@@ -103,7 +103,7 @@ export interface VehicleType {
   edited: string;
 }
 
-export interface StarshipType {
+export interface TStarship {
   name: string;
   model: string;
   starship_class: string;
@@ -124,7 +124,7 @@ export interface StarshipType {
   edited: string;
 }
 
-export interface SpeciesType {
+export interface TSpecies {
   name: string;
   classification: string;
   designation: string;
@@ -142,7 +142,7 @@ export interface SpeciesType {
   edited: string;
 }
 
-export interface PlanetType {
+export interface TPlanet {
   name: string;
   diameter: string;
   rotation_period: string;

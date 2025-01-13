@@ -14,7 +14,6 @@ export interface TSearchHeaderProps {
   options: TOptions;
   initialCategory: SwCategory;
   initialSearch: string;
-  onSubmit?: () => void;
   className?: string;
 }
 
@@ -22,7 +21,6 @@ const SearchHeader: FC<TSearchHeaderProps> = ({
   options,
   initialCategory,
   initialSearch,
-  onSubmit,
   className,
 }) => {
   const [state, setState] = useState<TSavedSearch>({
@@ -54,9 +52,8 @@ const SearchHeader: FC<TSearchHeaderProps> = ({
       setState(nextState);
       swService.saveSearch(nextState);
       navigate(`${PUBLIC_PATH}${category}/?search=${trimmedSearch}&page=1`, { relative: 'path' });
-      onSubmit?.();
     },
-    [onSubmit, state, navigate]
+    [state, navigate]
   );
 
   const { category, search } = state;

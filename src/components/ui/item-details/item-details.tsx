@@ -1,7 +1,7 @@
 import './item-details.scss';
 import { FC, useCallback, useMemo } from 'react';
 import Button from '../../shared/button/button';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import useItemLoader from '../../../hooks/use-item-loader';
 import { TFilm, TMan, TPlanet, TSpecies, TStarship, TVehicle } from '../../../types/types';
 import Loader from '../../shared/loader/loader';
@@ -14,11 +14,10 @@ import Starship from '../starship/starship';
 import Vehicle from '../vehicle/vehicle';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import { PUBLIC_PATH } from '../../../constants/constants';
-import { getFirstPathNamePart } from '../../../utils/get-first-pathname-part';
+import useParamsForItemFetch from '../../../hooks/use-params-for-item-fetch';
 
 const ItemDetails: FC = () => {
-  const category = getFirstPathNamePart();
-  const { itemId } = useParams();
+  const { category, itemId } = useParamsForItemFetch();
   const itemLoader = useItemLoader(String(category) as SwCategory, String(itemId));
   const { status, error, data } = itemLoader;
   const navigate = useNavigate();

@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { SwCategory } from '../enums/enums';
 import { ItemsSearchQueryType } from '../types/types';
+import { getFirstPathNamePart } from '../utils/get-first-pathname-part';
 
 const useParamsForItemsSearch = (): ItemsSearchQueryType => {
   const [queries] = useSearchParams();
-  const { category } = useParams();
+  const category = getFirstPathNamePart();
   const search = queries.get('search');
   const page = queries.get('page');
 
   const urlParams = useMemo(
     () => ({
-      category: category ? (category as SwCategory) : SwCategory.films,
+      category: category as SwCategory,
       search: search || '',
       page: page || '1',
     }),

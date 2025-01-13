@@ -1,32 +1,26 @@
 import { FC, useEffect, useState } from 'react';
 import ErrorComponent from './components/ui/error-component/error-component';
-
-import { useNavigate } from 'react-router';
-import useParamsForItemsSearch from './hooks/use-params-for-items-search';
+import { Navigate } from 'react-router';
 import Search from './components/ui/search/search';
 import { useSavedSearch } from './hooks/use-saved-search';
 import { PUBLIC_PATH } from './constants/constants';
+import useParamsForItemsSearch from './hooks/use-params-for-items-search';
+import { SwCategory } from './enums/enums';
 
 const App: FC = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
   const paramsForItemsSearch = useParamsForItemsSearch();
   const savedSearch = useSavedSearch();
-  const navigate = useNavigate();
+
+  const { search, category, page } = savedSearch || paramsForItemsSearch;
 
   useEffect(() => {
-    if (isFirstLoading) {
-      const { search, category, page } = savedSearch || paramsForItemsSearch;
-      navigate(`${PUBLIC_PATH}${category}/?search=${search}&page=${page}`);
+    setIsFirstLoading(false);
+  }, []);
 
-      setIsFirstLoading(false);
-    }
-  }, [navigate, paramsForItemsSearch, isFirstLoading, savedSearch]);
-
-  if (isFirstLoading) {
-    return null;
-  }
-
-  return (
+  return isFirstLoading ? (
+    <Navigate to={`${PUBLIC_PATH}${category || SwCategory.films}/?search=${search}&page=${page}`} />
+  ) : (
     <div className="page">
       <header className="page__header">
         <div className="container">

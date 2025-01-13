@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { assertExistance, createGetter } from '../../../../tests/utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import swService from '../../../services/sw-service';
-import { BASE_URL } from '../../../constants/constants';
+import { PUBLIC_PATH } from '../../../constants/constants';
 
 const options = [
   { value: SwCategory.people, label: 'People' },
@@ -122,7 +122,7 @@ describe('SearchHeader', () => {
       });
 
       expect(getCurrentLocation()).toBe(
-        `http://localhost:3000${BASE_URL}${defaultProps.initialCategory}/?search=${trimmedSearch}&page=1`
+        `http://localhost:3000${PUBLIC_PATH}${defaultProps.initialCategory}/?search=${trimmedSearch}&page=1`
       );
 
       expect(onSubmit).toBeCalled();

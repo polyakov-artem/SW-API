@@ -5,7 +5,7 @@ import SearchResults from './search-results';
 import { SwCategory } from '../../../enums/enums';
 import { responses } from '../../../../tests/mocks/constants';
 import { getLoadingState, getSuccessState } from '../../../utils/load-data';
-import { BASE_URL } from '../../../constants/constants';
+import { PUBLIC_PATH } from '../../../constants/constants';
 import { renderWithRouter } from '../../../utils/test/render-with-router';
 import { Route, Routes } from 'react-router';
 
@@ -41,11 +41,11 @@ const renderSearchResults = (props: CategoryLoaderAndSearchQueryType = firstProp
   return renderWithRouter(
     <>
       <Routes>
-        <Route path={`${BASE_URL}:category/:itemId?`} element={<SearchResults {...props} />} />
+        <Route path={`${PUBLIC_PATH}:category/:itemId?`} element={<SearchResults {...props} />} />
       </Routes>
     </>,
     {
-      route: `${BASE_URL}${category}/1/?search=${search}&page=${page}`,
+      route: `${PUBLIC_PATH}${category}/1/?search=${search}&page=${page}`,
     }
   );
 };
@@ -95,7 +95,7 @@ describe('SearchResults', () => {
 
       const newProps = secondProps;
       const { category, search, page } = newProps.searchQuery;
-      const route = `${BASE_URL}${category}/1/?search=${search}&page=${page}`;
+      const route = `${PUBLIC_PATH}${category}/1/?search=${search}&page=${page}`;
 
       rerender(<SearchResults {...secondProps} />, { route });
       assertAbsence(getPagination);
@@ -109,7 +109,7 @@ describe('SearchResults', () => {
 
       const { search } = window.location;
       const { category } = firstProps.searchQuery;
-      const expectedRoute = `http://localhost:3000${BASE_URL}${category}/${search}`;
+      const expectedRoute = `http://localhost:3000${PUBLIC_PATH}${category}/${search}`;
       expect(getCurrentLocation()).toBe(expectedRoute);
     });
   });

@@ -3,7 +3,7 @@ import ErrorBoundary from './components/shared/error-boundary/error-boundary';
 import App from './App';
 import ItemDetails from './components/ui/item-details/item-details';
 import NotFoundPage from './pages/not-found-page/not-found-page';
-import { BASE_URL } from './constants/constants';
+import { PUBLIC_PATH } from './constants/constants';
 
 const appWithErrorBoundary = (
   <ErrorBoundary>
@@ -13,7 +13,7 @@ const appWithErrorBoundary = (
 
 const routes: RouteObject[] = [
   {
-    path: `${BASE_URL}:category?`,
+    path: `${PUBLIC_PATH}:category?`,
     element: appWithErrorBoundary,
 
     children: [
@@ -24,7 +24,7 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    path: `${BASE_URL}not-found-page`,
+    path: `${PUBLIC_PATH}not-found-page`,
     element: <NotFoundPage />,
   },
 ];

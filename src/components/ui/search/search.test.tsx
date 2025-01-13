@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Search from './search';
 import { renderWithRouter } from '../../../utils/test/render-with-router';
 import ErrorBoundary from '../../shared/error-boundary/error-boundary';
-import { BASE_URL, selectOptions } from '../../../constants/constants';
+import { PUBLIC_PATH, selectOptions } from '../../../constants/constants';
 import { SwCategory } from '../../../enums/enums';
 import PropsComponent, { PropsComponentProps } from '../../../../tests/components/props-component';
 import { assertAbsence, assertExistance, createGetter } from '../../../../tests/utils/test-utils';
@@ -15,9 +15,9 @@ const search = 'a';
 const page = '1';
 const itemId = '1';
 
-const routeWithoutItemId = `${BASE_URL}${category}/?search=${search}&page=${page}`;
-const routeWithInvalidPage = `${BASE_URL}${category}/?search=${search}&page=-1`;
-const routeWithItemId = `${BASE_URL}${category}/${itemId}/?search=${search}&page=${page}`;
+const routeWithoutItemId = `${PUBLIC_PATH}${category}/?search=${search}&page=${page}`;
+const routeWithInvalidPage = `${PUBLIC_PATH}${category}/?search=${search}&page=-1`;
+const routeWithItemId = `${PUBLIC_PATH}${category}/${itemId}/?search=${search}&page=${page}`;
 const searchHeaderTestId = 'search-header';
 const searchResultsTestId = 'search-results';
 
@@ -38,7 +38,7 @@ const renderSearch = (route: string) => {
     <>
       <Routes>
         <Route
-          path={`${BASE_URL}:category/`}
+          path={`${PUBLIC_PATH}:category/`}
           element={
             <ErrorBoundary>
               <Search />
@@ -46,7 +46,7 @@ const renderSearch = (route: string) => {
           }>
           <Route path=":itemId" element={<div>Details component</div>} />
         </Route>
-        <Route path={`${BASE_URL}not-found-page`} element={<div>not found page</div>} />
+        <Route path={`${PUBLIC_PATH}not-found-page`} element={<div>not found page</div>} />
       </Routes>
     </>,
     {

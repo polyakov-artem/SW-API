@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import NotFoundBanner from './not-found-banner';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import userEvent from '@testing-library/user-event';
-import { BASE_URL } from '../../../constants/constants';
+import { PUBLIC_PATH } from '../../../constants/constants';
 
 const getButton = () => screen.getByRole('button', { name: /Home/i });
 
@@ -24,10 +24,10 @@ describe('NotFoundBanner', () => {
       const user = userEvent.setup();
 
       render(
-        <MemoryRouter initialEntries={[`${BASE_URL}notFound`]}>
+        <MemoryRouter initialEntries={[`${PUBLIC_PATH}notFound`]}>
           <Routes>
-            <Route path={BASE_URL} element={<Home />} />
-            <Route path={`${BASE_URL}notFound`} element={<NotFound />} />
+            <Route path={PUBLIC_PATH} element={<Home />} />
+            <Route path={`${PUBLIC_PATH}notFound`} element={<NotFound />} />
           </Routes>
         </MemoryRouter>
       );

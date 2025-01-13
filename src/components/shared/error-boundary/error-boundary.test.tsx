@@ -4,7 +4,7 @@ import ErrorBoundary from './error-boundary';
 import { PropsWithChildren } from 'react';
 import { NOT_FOUND_MESSAGE } from '../../../utils/load-data';
 import userEvent from '@testing-library/user-event';
-import { BASE_URL } from '../../../constants/constants';
+import { PUBLIC_PATH } from '../../../constants/constants';
 
 const renderErrorBoundary = ({ children }: PropsWithChildren) =>
   render(<ErrorBoundary>{children}</ErrorBoundary>, { wrapper: MemoryRouter });
@@ -63,7 +63,7 @@ describe('ErrorBoundary', () => {
         <MemoryRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path={`${BASE_URL}not-found-page`} element={<NotFoundPage />} />
+            <Route path={`${PUBLIC_PATH}not-found-page`} element={<NotFoundPage />} />
           </Routes>
         </MemoryRouter>
       );

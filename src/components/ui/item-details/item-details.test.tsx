@@ -1,7 +1,7 @@
 import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import ItemDetails from './item-details';
-import { BASE_URL } from '../../../constants/constants';
+import { PUBLIC_PATH } from '../../../constants/constants';
 import ErrorBoundary from '../../shared/error-boundary/error-boundary';
 import { assertAbsence, assertExistance, createGetter } from '../../../../tests/utils/test-utils';
 import { addNetworkError } from '../../../../tests/msw/msw-utils';
@@ -16,18 +16,18 @@ const renderItemDetails = ({
   itemId?: string;
 }) =>
   render(
-    <MemoryRouter initialEntries={[`${BASE_URL}${category}/${itemId}`]}>
+    <MemoryRouter initialEntries={[`${PUBLIC_PATH}${category}/${itemId}`]}>
       <Routes>
         <Route
-          path={`${BASE_URL}:category/:itemId`}
+          path={`${PUBLIC_PATH}:category/:itemId`}
           element={
             <ErrorBoundary>
               <ItemDetails />
             </ErrorBoundary>
           }
         />
-        <Route path={`${BASE_URL}:category`} element={<div>Search page</div>} />
-        <Route path={`${BASE_URL}not-found-page`} element={<div>Not found</div>} />
+        <Route path={`${PUBLIC_PATH}:category`} element={<div>Search page</div>} />
+        <Route path={`${PUBLIC_PATH}not-found-page`} element={<div>Not found</div>} />
       </Routes>
     </MemoryRouter>
   );

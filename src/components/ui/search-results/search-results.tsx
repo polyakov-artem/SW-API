@@ -1,36 +1,30 @@
 import { FC, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import './search-results.scss';
-import { LoadingStatus } from '../../../utils/load-data';
-import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
 import Pagination from '../../shared/pagination/pagination';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import SearchResultsContent from '../search-results-content/search-results-content';
 import { PUBLIC_PATH } from '../../../constants/constants';
+import { getFirstPathNamePart } from '../../../utils/get-first-pathname-part';
+import { selectItemsLoader } from '../../../store/items-loader-slice';
+import { useAppSelector } from '../../../hooks/store-hooks';
+import SearchResultsContent from '../search-results-content/search-results-content';
 
-const SearchResults: FC<TCategoryLoaderAndSearchQuery> = ({ categoryLoader, searchQuery }) => {
+const SearchResults: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { itemId } = useParams();
+  const category = getFirstPathNamePart();
+  const itemsLoader = useAppSelector(selectItemsLoader);
+  const itemsTotalCount = itemsLoader.data?.count;
+  const [savedTotalCount, setSavedTotalCount] = useState(itemsLoader.data?.count || 0);
 
   const paginationRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const loaderData = categoryLoader.data;
-  const loaderStatus = categoryLoader.status;
-
-  const [prevCategory, setPrevCategory] = useState(searchQuery.category);
-  const [prevLoaderData, setPrevLoaderData] = useState(loaderData);
-
   useEffect(() => {
-    if (searchQuery.category !== prevCategory) {
-      setPrevCategory(searchQuery.category);
-      setPrevLoaderData(loaderData);
-      return;
+    if (itemsTotalCount !== undefined && itemsTotalCount !== savedTotalCount) {
+      setSavedTotalCount(itemsTotalCount);
     }
-    if (loaderStatus === LoadingStatus.success) {
-      setPrevLoaderData(loaderData);
-    }
-  }, [searchQuery.category, prevCategory, loaderData, loaderStatus]);
+  }, [itemsTotalCount, savedTotalCount]);
 
   const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
@@ -43,18 +37,18 @@ const SearchResults: FC<TCategoryLoaderAndSearchQuery> = ({ categoryLoader, sear
       )
         return;
 
-      navigate(`${PUBLIC_PATH}${searchQuery.category}/${location.search}`, { relative: 'path' });
+      navigate(`${PUBLIC_PATH}${category}/${location.search}`, { relative: 'path' });
     },
-    [navigate, searchQuery.category, location.search, itemId]
+    [navigate, category, location.search, itemId]
   );
 
   return (
     <div className="search-results" onClick={handleClick}>
       <div className="search-results__pagination-wrap" ref={paginationRef}>
-        <Pagination totalCount={prevLoaderData?.count} perPageCount={10} />
+        {!!savedTotalCount && <Pagination totalCount={savedTotalCount} perPageCount={10} />}
       </div>
       <div className="search-results__content" ref={contentRef}>
-        <SearchResultsContent categoryLoader={categoryLoader} searchQuery={searchQuery} />
+        <SearchResultsContent itemsLoader={itemsLoader} />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react';
 import { SwCategory } from '../enums/enums';
-import { LoaderState } from '../utils/load-data';
 
 export type TSize = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 export type TClassMods = Record<string, string | boolean | undefined>;
@@ -23,11 +22,6 @@ export type TItemsQuery = {
 export type TItemQuery = {
   category: SwCategory;
   itemId: string;
-};
-
-export type TCategoryLoaderAndSearchQuery = {
-  searchQuery: TItemsQuery;
-  categoryLoader: LoaderState<TGetItemsResponsesMap[SwCategory]>;
 };
 
 export type TGetItemsResponsesMap = {

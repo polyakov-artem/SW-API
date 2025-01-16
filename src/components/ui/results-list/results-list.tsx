@@ -1,10 +1,11 @@
 import { FC, useMemo } from 'react';
 import './results-list.scss';
-import { TGetItemsResponseResults, TItemsQuery } from '../../../types/types';
+import { TGetItemsResponsesMap, TItemsQuery } from '../../../types/types';
 import ResultsItem from '../results-item/results-item';
+import { SwCategory } from '../../../enums/enums';
 
 export type TResultListProps = {
-  items: TGetItemsResponseResults;
+  items: TGetItemsResponsesMap[SwCategory]['results'];
   searchQuery: TItemsQuery;
 };
 
@@ -25,7 +26,7 @@ const compareFn = (item1: TItem, item2: TItem) => {
 };
 
 const ResultsList: FC<TResultListProps> = ({ items, searchQuery }) => {
-  const sorted = useMemo(() => items.sort(compareFn), [items]);
+  const sorted = useMemo(() => [...items].sort(compareFn), [items]);
 
   return (
     <ul className={BASE_CLASS_NAME}>

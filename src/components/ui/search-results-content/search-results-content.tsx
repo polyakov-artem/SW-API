@@ -1,23 +1,23 @@
 import { FC } from 'react';
-import { TCategoryLoaderAndSearchQuery } from '../../../types/types';
-import { LoadingStatus } from '../../../utils/load-data';
 import Loader from '../../shared/loader/loader';
 import ResultsList from '../results-list/results-list';
 import { capitalizeWord } from '../../../utils/capitalize-word';
+import { TItemsLoaderState } from '../../../store/items-loader-slice';
+import useParamsForItemsSearch from '../../../hooks/use-params-for-items-search';
 
-const SearchResultsContent: FC<TCategoryLoaderAndSearchQuery> = ({
-  categoryLoader,
-  searchQuery,
-}) => {
-  const { data, error, status } = categoryLoader;
+export type TSearchResultsContent = {
+  itemsLoader: TItemsLoaderState;
+};
 
-  if (status === LoadingStatus.loading)
-    return <Loader classMods={{ ['full-space']: true, size: 'lg' }} />;
+const SearchResultsContent: FC<TSearchResultsContent> = ({ itemsLoader }) => {
+  const { data, error, isLoading, isError } = itemsLoader;
+  const searchQuery = useParamsForItemsSearch();
 
-  if (status === LoadingStatus.error) return <h2>Error occurred while loading: {error}</h2>;
+  if (isLoading) return <Loader classMods={{ ['full-space']: true, size: 'lg' }} />;
 
-  if (status === LoadingStatus.success && data?.count && data.results)
-    return <ResultsList items={data.results} searchQuery={searchQuery} />;
+  if (isError) return <h2>Error occurred while loading: {error}</h2>;
+
+  if (data?.results?.length) return <ResultsList items={data.results} searchQuery={searchQuery} />;
 
   return (
     <h2>

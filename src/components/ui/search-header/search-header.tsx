@@ -9,6 +9,8 @@ import { SwCategory } from '../../../enums/enums';
 import swService from '../../../services/sw-service';
 import { useNavigate } from 'react-router';
 import { PUBLIC_PATH } from '../../../constants/constants';
+import { useAppDispatch } from '../../../hooks/store-hooks';
+import { removeDownloadItems } from '../../../store/download-items-slice';
 
 export interface TSearchHeaderProps {
   options: TOptions;
@@ -31,6 +33,7 @@ const SearchHeader: FC<TSearchHeaderProps> = ({
   });
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;
@@ -52,8 +55,9 @@ const SearchHeader: FC<TSearchHeaderProps> = ({
       setState(nextState);
       swService.saveSearch(nextState);
       navigate(`${PUBLIC_PATH}${category}/?search=${trimmedSearch}&page=1`, { relative: 'path' });
+      dispatch(removeDownloadItems());
     },
-    [state, navigate]
+    [state, navigate, dispatch]
   );
 
   const { category, search } = state;

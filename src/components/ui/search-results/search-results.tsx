@@ -26,7 +26,7 @@ const SearchResults: FC = () => {
     }
   }, [itemsTotalCount, savedTotalCount]);
 
-  const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
+  const handleClick = useCallback<MouseEventHandler<HTMLDivElement>>(
     (e) => {
       if (
         itemId === undefined ||

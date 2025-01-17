@@ -42,6 +42,8 @@ export type TFetchItemResponsesMap = {
   [SwCategory.vehicles]: TVehicle;
 };
 
+export type TItem = TFetchItemResponsesMap[SwCategory];
+
 export interface TMan {
   name: string;
   birth_year: string;

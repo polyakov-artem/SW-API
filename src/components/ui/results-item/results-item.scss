@@ -1,12 +1,14 @@
 .results-item {
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  justify-content: space-between;
+  gap: 20px;
+
   &__link {
-    display: block;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    text-decoration: none;
     color: black;
-    height: 100%;
+    text-decoration: none;
   }
 
   &__link:hover {

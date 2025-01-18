@@ -8,10 +8,10 @@ import {
   starshipData,
   vehicleData,
 } from '../mocks/constants';
-import { BASE_URL } from '../../src/services/http-service';
+import { BASE_URL } from '../../src/store/api';
 
 export const handlers = [
-  http.get(`${BASE_URL}films/`, ({ request }) => {
+  http.get(`${BASE_URL}films`, ({ request }) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');
     const search = url.searchParams.get('search');
@@ -27,7 +27,7 @@ export const handlers = [
     }
   }),
 
-  http.get(`${BASE_URL}people/`, ({ request }) => {
+  http.get(`${BASE_URL}people`, ({ request }) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');
     const search = url.searchParams.get('search');

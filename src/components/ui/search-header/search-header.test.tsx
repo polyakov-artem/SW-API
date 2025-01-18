@@ -6,6 +6,11 @@ import { assertExistance, createGetter } from '../../../../tests/utils/test-util
 import userEvent from '@testing-library/user-event';
 import swService from '../../../services/sw-service';
 import { PUBLIC_PATH } from '../../../constants/constants';
+import { Provider } from 'react-redux';
+import store from '../../../store/store';
+import { addDownloadItem } from '../../../store/download-items-slice';
+import { TItem } from '../../../types/types';
+import { act } from 'react';
 
 const options = [
   { value: SwCategory.people, label: 'People' },
@@ -20,25 +25,33 @@ const defaultProps = {
   options,
   initialCategory,
   initialSearch,
-  onSubmit: vi.fn(),
   className,
 };
 
 const renderSearchHeader = (props: TSearchHeaderProps = defaultProps) => {
   return {
-    ...render(<SearchHeader {...props} />, { wrapper: BrowserRouter }),
+    ...render(
+      <Provider store={store}>
+        <SearchHeader {...props} />
+      </Provider>,
+      { wrapper: BrowserRouter }
+    ),
     user: userEvent.setup(),
+    getState: store.getState,
+    dispatch: store.dispatch,
   };
 };
 
-const getCurrentLocation = () => window.location.toString();
+const downloadItem = { url: 'url', title: 'title' } as TItem;
 
+const getCurrentLocation = () => window.location.toString();
 const getHeader = createGetter('search-header');
 const getHeading = () => screen.getByRole('heading', { name: /Enter your search request/i });
 const getForm = createGetter('search-header__field');
 const getSelect = () => screen.getByRole('combobox');
 const getInput = () => screen.getByRole('textbox');
 const getButton = () => screen.getByRole('button', { name: /Search/i });
+const addItem = () => addDownloadItem(downloadItem);
 
 describe('SearchHeader', () => {
   describe('when all props are provided', () => {
@@ -104,28 +117,28 @@ describe('SearchHeader', () => {
   });
 
   describe('when submit button is clicked', async () => {
-    test(`should trim whitespace from search input, save search state, navigate to the correct URL`, async () => {
+    test(`should trim whitespace from search input, save search state, navigate to the correct URL, clear download items in the store`, async () => {
       const initialSearch = '   Luke  ';
-      const onSubmit = vi.fn();
       const trimmedSearch = initialSearch.trim();
       const mockSaveSearch = vi.spyOn(swService, 'saveSearch').mockImplementation(vi.fn());
-
-      const { user } = renderSearchHeader({ ...defaultProps, initialSearch, onSubmit });
+      const { user, dispatch, getState } = renderSearchHeader({ ...defaultProps, initialSearch });
       expect(getInput()).toHaveValue(initialSearch);
+      act(() => {
+        dispatch(addItem());
+      });
+      expect(getState().downloadItems).toEqual({ [downloadItem.url]: downloadItem });
+
       await user.click(getButton());
 
       expect(getInput()).toHaveValue(trimmedSearch);
-
       expect(mockSaveSearch).toHaveBeenCalledWith({
         search: trimmedSearch,
         category: defaultProps.initialCategory,
       });
-
       expect(getCurrentLocation()).toBe(
         `http://localhost:3000${PUBLIC_PATH}${defaultProps.initialCategory}/?search=${trimmedSearch}&page=1`
       );
-
-      expect(onSubmit).toBeCalled();
+      expect(getState().downloadItems).toEqual({});
     });
   });
 });

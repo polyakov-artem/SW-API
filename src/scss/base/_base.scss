@@ -40,4 +40,15 @@ body {
   min-height: 100dvh;
   grid-template-rows: auto 1fr;
   gap: 20px;
+  position: relative;
+
+  &__download-dialog-wrap {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: var(--container-max-width);
+    padding: 0 40px;
+  }
 }

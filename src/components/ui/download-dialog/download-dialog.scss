@@ -1,0 +1,27 @@
+.download-dialog {
+  padding: 10px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transform: translateX(-200%);
+  transition-duration: 0.5s;
+
+  &_active {
+    user-select: auto;
+    transform: translateX(0);
+  }
+
+  &__message {
+    margin: 0;
+  }
+
+  &__buttons-wrap {
+    display: flex;
+    gap: 20px;
+  }
+}

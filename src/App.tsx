@@ -6,6 +6,7 @@ import { useSavedSearch } from './hooks/use-saved-search';
 import { PUBLIC_PATH } from './constants/constants';
 import useParamsForItemsSearch from './hooks/use-params-for-items-search';
 import { SwCategory } from './enums/enums';
+import DownloadDialog from './components/ui/download-dialog/download-dialog';
 
 const App: FC = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
@@ -30,6 +31,9 @@ const App: FC = () => {
       <main className="page__main">
         <Search />
       </main>
+      <div className="page__download-dialog-wrap">
+        <DownloadDialog className="page__download-dialog" />
+      </div>
     </div>
   );
 };

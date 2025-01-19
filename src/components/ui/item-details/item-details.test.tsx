@@ -1,68 +1,63 @@
-import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import ItemDetails from './item-details';
 import { PUBLIC_PATH } from '../../../constants/constants';
-import ErrorBoundary from '../../shared/error-boundary/error-boundary';
 import { assertAbsence, assertExistance, createGetter } from '../../../../tests/utils/test-utils';
 import { addNetworkError } from '../../../../tests/msw/msw-utils';
 import { server } from '../../../../tests/msw/server';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { renderWithRouter } from '../../../utils/test/render-with-router';
+import { Route, Routes } from 'react-router';
+import reducer from '../../../store/reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { api } from '../../../store/api';
 
-const renderItemDetails = ({
-  category = 'films',
-  itemId = '1',
-}: {
-  category?: string;
-  itemId?: string;
-}) =>
-  render(
-    <MemoryRouter initialEntries={[`${PUBLIC_PATH}${category}/${itemId}`]}>
-      <Routes>
-        <Route
-          path={`${PUBLIC_PATH}:category/:itemId`}
-          element={
-            <ErrorBoundary>
-              <ItemDetails />
-            </ErrorBoundary>
-          }
-        />
-        <Route path={`${PUBLIC_PATH}:category`} element={<div>Search page</div>} />
-        <Route path={`${PUBLIC_PATH}not-found-page`} element={<div>Not found</div>} />
-      </Routes>
-    </MemoryRouter>
-  );
+const renderItemDetails = ({ category = 'films', itemId = '1' }) => {
+  const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+  });
+
+  return {
+    getState: store.getState,
+    ...renderWithRouter(
+      <Provider store={store}>
+        <Routes>
+          <Route path={`${PUBLIC_PATH}${category}/:itemId`} element={<ItemDetails />} />
+          <Route path={`${PUBLIC_PATH}${category}/`} element={<div>Search page</div>} />
+        </Routes>
+      </Provider>,
+      { route: `${PUBLIC_PATH}${category}/${itemId}` }
+    ),
+  };
+};
 
 const getWrap = createGetter('item-details');
 const getLoader = createGetter('loader');
 const getCloseBtn = () => screen.getByRole('button', { name: /close/i });
 const getErrorMessage = () => screen.getByText(/Error occurred/i);
-const getSearchTitle = () => screen.getByText(/Search page/i);
+const getSearchPageText = () => screen.getByText(/Search page/i);
 
 describe('ItemDetails', () => {
-  describe('when item is not found', () => {
-    test('should throw an error (redirects in ErrorBoundary to "not found" page)', async () => {
-      renderItemDetails({ itemId: 's' });
-
-      await waitFor(() => expect(screen.getByText(/not found/i)).toBeInTheDocument());
-    });
-  });
-
   describe('when item is loading', () => {
-    test('should render wrap with className, close button, loader', () => {
-      renderItemDetails({});
+    test('should render component with close button, loader, change itemFetcher isLoading property', () => {
+      const { getState } = renderItemDetails({});
 
       assertExistance(getWrap, getCloseBtn, getLoader);
+      expect(getState().itemFetcher.isLoading).toBe(true);
     });
   });
 
   describe('when an error occurs while loading', () => {
-    test('should render wrap with className, close button, error message', async () => {
+    test('should render component with close button, error message, add error to itemFetcher', async () => {
       addNetworkError(server);
-      renderItemDetails({});
+      const { getState } = renderItemDetails({});
 
       await waitForElementToBeRemoved(getLoader());
 
       assertExistance(getWrap, getCloseBtn, getErrorMessage);
+      expect(getState().itemFetcher.isError).toBe(true);
+      expect(getState().itemFetcher.error).not.toBe(null);
     });
   });
 
@@ -99,13 +94,14 @@ describe('ItemDetails', () => {
         getter: () => screen.getByText(/TIE bomber/i),
       },
     ])(
-      'should render $component component when category is $category',
+      'should render $component component when category is $category, add data to itemFetcher',
       async ({ category, getter }) => {
-        renderItemDetails({ category });
+        const { getState } = renderItemDetails({ category });
 
         await waitForElementToBeRemoved(getLoader());
 
         expect(getter()).toBeInTheDocument();
+        expect(getState().itemFetcher.data).not.toBe(null);
       }
     );
   });
@@ -117,7 +113,7 @@ describe('ItemDetails', () => {
       renderItemDetails({});
       await user.click(getCloseBtn());
 
-      expect(getSearchTitle()).toBeInTheDocument();
+      expect(getSearchPageText()).toBeInTheDocument();
       assertAbsence(getWrap);
     });
   });

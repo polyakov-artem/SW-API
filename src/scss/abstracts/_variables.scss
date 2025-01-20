@@ -1,16 +1,122 @@
 :root {
-  --white: rgb(255, 255, 255);
-  --black: rgb(0, 0, 0);
+  --white-1: rgb(255, 255, 255);
+  --white-2: rgb(233, 236, 239);
+  --black-1: rgb(0, 0, 0);
+  --black-2: rgb(33, 37, 41);
+  --black-2-75: rgba(33, 37, 41, 0.75);
+  --blue-1: rgb(13, 110, 253);
+  --blue-1-25: rgba(13, 110, 253, 0.25);
+  --blue-2: rgb(11, 94, 215);
+  --blue-3: rgb(10, 88, 202);
+  --blue-4: rgb(10, 83, 190);
+  --blue-5: rgb(49, 132, 253);
+  --blue-6: rgb(49, 132, 253);
+  --gray-1: rgb(108, 117, 125);
+  --gray-2: rgb(124, 124, 124);
+  --gray-3: rgb(204, 204, 204);
+  --red-1: rgb(255, 0, 0);
+  --red-2: rgb(255, 81, 0);
 
-  --font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --g-page-bg-color: var(--white-1);
+  --g-page-text-color: var(--black-1);
 
-  --page-min-width: 320px;
-  --container-max-width: 1320px;
-  --default-padding: 20px;
+  --g-block-border-color-1: var(--black-1);
+  --g-block-border-color-2: var(--gray-3);
+
+  --g-loader-color: var(--gray-2);
+
+  --g-link-color: var(--g-page-text-color);
+  --g-link-hover-color: var(--red-2);
+
+  --g-field-primary-color: var(--black-2);
+  --g-field-primary-bg-color: var(--white-1);
+  --g-field-primary-border-color: var(--gray-3);
+  --g-field-primary-focus-border-color: var(--blue-6);
+  --g-field-primary-focus-box-shadow: var(--blue-1-25);
+  --g-field-primary-disabled-bg-color: var(--white-2);
+  --g-field-primary-invalid-border-color: var(--red-1);
+  --g-field-primary-placeholder-color: var(--black-2-75);
+
+  --g-btn-primary-color: var(--white-1);
+  --g-btn-primary-bg-color: var(--blue-1);
+  --g-btn-primary-border-color: var(--blue-1);
+  --g-btn-primary-hover-bg-color: var(--blue-2);
+  --g-btn-primary-hover-border-color: var(--blue-3);
+  --g-btn-primary-active-bg-color: var(--blue-3);
+  --g-btn-primary-active-border-color: var(--blue-4);
+  --g-btn-primary-disabled-bg-color: var(--gray-1);
+  --g-btn-primary-disabled-border-color: var(--gray-1);
+  --g-btn-primary-focus-box-shadow: var(--blue-5);
+
+  --g-input-primary-color: var(--g-field-primary-color);
+  --g-input-primary-bg-color: var(--g-field-primary-bg-color);
+  --g-input-primary-border-color: var(--g-field-primary-border-color);
+  --g-input-primary-focus-border-color: var(--g-field-primary-focus-border-color);
+  --g-input-primary-focus-box-shadow: var(--g-field-primary-focus-box-shadow);
+  --g-input-primary-disabled-bg-color: var(--g-field-primary-disabled-bg-color);
+  --g-input-primary-invalid-border-color: var(--g-field-primary-invalid-border-color);
+  --g-input-primary-placeholder-color: var(--g-field-primary-placeholder-color);
+
+  --g-checkbox-primary-color: var(--g-field-primary-color);
+  --g-checkbox-primary-bg-color: var(--g-field-primary-bg-color);
+  --g-checkbox-primary-border-color: var(--g-field-primary-border-color);
+  --g-checkbox-primary-focus-border-color: var(--g-field-primary-focus-border-color);
+  --g-checkbox-primary-focus-box-shadow: var(--g-field-primary-focus-box-shadow);
+  --g-checkbox-primary-disabled-bg-color: var(--g-field-primary-disabled-bg-color);
+  --g-checkbox-primary-invalid-border-color: var(--g-field-primary-invalid-border-color);
+
+  --g-pagination-btn-color: var(--g-btn-primary-color);
+  --g-pagination-btn-bg-color: var(--g-btn-primary-bg-color);
+  --g-pagination-btn-border-color: var(--g-btn-primary-border-color);
+  --g-pagination-btn-hover-bg-color: var(--g-btn-primary-hover-bg-color);
+  --g-pagination-btn-hover-border-color: var(--g-btn-primary-hover-border-color);
+  --g-pagination-btn-active-bg-color: var(--g-btn-primary-active-bg-color);
+  --g-pagination-btn-active-border-color: var(--g-btn-primary-active-border-color);
+  --g-pagination-btn-focus-box-shadow: var(--g-btn-primary-focus-box-shadow);
+  --g-pagination-btn-disabled-bg-color: var(--g-btn-primary-disabled-bg-color);
+  --g-pagination-btn-disabled-border-color: var(--g-btn-primary-disabled-border-color);
+  --g-pagination-btn-selected-bg-color: var(--black-1);
+  --g-pagination-btn-selected-border-color: var(--g-pagination-btn-selected-border-color);
+
+  --g-select-primary-color: var(--g-field-primary-color);
+  --g-select-primary-bg-color: var(--g-field-primary-bg-color);
+  --g-select-primary-border-color: var(--g-field-primary-border-color);
+  --g-select-primary-focus-border-color: var(--g-field-primary-focus-border-color);
+  --g-select-primary-focus-box-shadow: var(--g-field-primary-focus-box-shadow);
+  --g-select-primary-disabled-bg-color: var(--g-field-primary-disabled-bg-color);
+  --g-select-primary-invalid-border-color: var(--g-field-primary-invalid-border-color);
+
+  --g-download-dialog-bg-color: var(--g-page-bg-color);
+  --g-download-dialog-border-color: var(--g-block-border-color-1);
+
+  --g-item-details-border-color: var(--g-block-border-color-1);
+  --g-item-details-loader-color: var(--g-loader-color);
+
+  --g-results-item-border-color: var(--g-block-border-color-2);
+  --g-results-item-link-color: var(--g-link-color);
+  --g-results-item-link-hover-color: var(--g-link-hover-color);
+
+  --g-search-header-border-color: var(--g-block-border-color-1);
+
+  --g-search-results-border-color: var(--g-block-border-color-1);
+  --g-search-results-loader-color: var(--g-loader-color);
+}
+
+:root[theme='dark'] {
+}
+
+:root {
+  --g-ff-sans-serif: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans',
+    'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  --g-ff-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+}
+
+:root {
+  --g-page-min-width: 320px;
+  --g-container-max-width: 1320px;
+  --g-default-padding: 20px;
 }
 
 $breakpoint-sm: 575.98px;

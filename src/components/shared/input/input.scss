@@ -1,15 +1,12 @@
 .input {
-  --input-primary-color: #212529;
-  --input-primary-bg-color: #fff;
-  --input-primary-border-color: #dee2e6;
-
-  --input-primary-focus-border-color: #86b7fe;
-  --input-primary-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-
-  --input-primary-disabled-bg-color: #e9ecef;
-
-  --input-primary-placeholder-color: rgba(33, 37, 41, 0.75);
-  --input-primary-invalid-border-color: red;
+  --input-primary-color: var(--g-input-primary-color);
+  --input-primary-bg-color: var(--g-input-primary-bg-color);
+  --input-primary-border-color: var(--g-input-primary-border-color);
+  --input-primary-focus-border-color: var(--g-input-primary-focus-border-color);
+  --input-primary-focus-box-shadow: var(--g-input-primary-focus-box-shadow);
+  --input-primary-disabled-bg-color: var(--g-input-primary-disabled-bg-color);
+  --input-primary-placeholder-color: var(--g-input-primary-placeholder-color);
+  --input-primary-invalid-border-color: var(--g-input-primary-invalid-border-color);
 }
 
 .input {
@@ -94,7 +91,7 @@
 
   & .input__control:focus {
     border-color: var(--input-primary-focus-border-color);
-    box-shadow: var(--input-primary-focus-box-shadow);
+    box-shadow: 0 0 0 0.25rem var(--input-primary-focus-box-shadow);
   }
 
   & .input__control:disabled {

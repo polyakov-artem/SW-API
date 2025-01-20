@@ -1,14 +1,11 @@
 .checkbox {
-  --checkbox-primary-color: #212529;
-  --checkbox-primary-bg-color: #fff;
-  --checkbox-primary-border-color: #dee2e6;
-
-  --checkbox-primary-focus-border-color: #86b7fe;
-  --checkbox-primary-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-
-  --checkbox-primary-disabled-bg-color: #e9ecef;
-
-  --checkbox-primary-invalid-border-color: red;
+  --checkbox-primary-color: var(--g-checkbox-primary-color);
+  --checkbox-primary-bg-color: var(--g-checkbox-primary-bg-color);
+  --checkbox-primary-border-color: var(--g-checkbox-primary-border-color);
+  --checkbox-primary-focus-border-color: var(--g-checkbox-primary-focus-border-color);
+  --checkbox-primary-focus-box-shadow: var(--g-checkbox-primary-focus-box-shadow);
+  --checkbox-primary-disabled-bg-color: var(--g-checkbox-primary-disabled-bg-color);
+  --checkbox-primary-invalid-border-color: var(--g-checkbox-primary-invalid-border-color);
 }
 
 .checkbox {
@@ -70,7 +67,7 @@
 
   & .checkbox__control:focus ~ .checkbox__box {
     border-color: var(--checkbox-primary-focus-border-color);
-    box-shadow: var(--checkbox-primary-focus-box-shadow);
+    box-shadow: 0 0 0 0.25rem var(--checkbox-primary-focus-box-shadow);
   }
 
   & .checkbox__control:disabled ~ .checkbox__box {

@@ -1,14 +1,11 @@
 .select {
-  --select-primary-color: #212529;
-  --select-primary-bg-color: #fff;
-  --select-primary-border-color: #dee2e6;
-
-  --select-primary-focus-border-color: #86b7fe;
-  --select-primary-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-
-  --select-primary-disabled-bg-color: #e9ecef;
-
-  --select-primary-invalid-border-color: red;
+  --select-primary-color: var(--g-select-primary-color);
+  --select-primary-bg-color: var(--g-select-primary-bg-color);
+  --select-primary-border-color: var(--g-select-primary-border-color);
+  --select-primary-focus-border-color: var(--g-select-primary-focus-border-color);
+  --select-primary-focus-box-shadow: var(--g-select-primary-focus-box-shadow);
+  --select-primary-disabled-bg-color: var(--g-select-primary-disabled-bg-color);
+  --select-primary-invalid-border-color: var(--g-select-primary-invalid-border-color);
 }
 
 .select {
@@ -55,7 +52,7 @@
 
   & .select__control:focus {
     border-color: var(--select-primary-focus-border-color);
-    box-shadow: var(--select-primary-focus-box-shadow);
+    box-shadow: 0 0 0 0.25rem var(--select-primary-focus-box-shadow);
   }
 
   & .select__control:disabled {

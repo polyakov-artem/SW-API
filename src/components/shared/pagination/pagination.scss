@@ -1,22 +1,18 @@
 @use './../../../scss/abstracts/mixins';
 
 .pagination {
-  --btn-color: #fff;
-  --btn-bg-color: #0d6efd;
-  --btn-border-color: #0d6efd;
-
-  --btn-hover-bg-color: #0b5ed7;
-  --btn-hover-border-color: #0a58ca;
-
-  --btn-active-bg-color: #0a58ca;
-  --btn-active-border-color: #0a53be;
-  --btn-focus-box-shadow: 0 0 0 0.25rem rgb(49, 132, 253);
-
-  --btn-disabled-bg-color: #6c757d;
-  --btn-disabled-border-color: #6c757d;
-
-  --btn-selected-bg-color: #000000;
-  --btn-selected-border-color: #000000;
+  --pagination-btn-color: var(--g-pagination-btn-color);
+  --pagination-btn-bg-color: var(--g-pagination-btn-bg-color);
+  --pagination-btn-border-color: var(--g-pagination-btn-border-color);
+  --pagination-btn-hover-bg-color: var(--g-pagination-btn-hover-bg-color);
+  --pagination-btn-hover-border-color: var(--g-pagination-btn-hover-border-color);
+  --pagination-btn-active-bg-color: var(--g-pagination-btn-active-bg-color);
+  --pagination-btn-active-border-color: var(--g-pagination-btn-active-border-color);
+  --pagination-btn-focus-box-shadow: var(--g-pagination-btn-focus-box-shadow);
+  --pagination-btn-disabled-bg-color: var(--g-pagination-btn-disabled-bg-color);
+  --pagination-btn-disabled-border-color: var(--g-pagination-btn-disabled-border-color);
+  --pagination-btn-selected-bg-color: var(--g-pagination-btn-selected-bg-color);
+  --pagination-btn-selected-border-color: var(--g-pagination-btn-selected-border-color);
 }
 
 .pagination {
@@ -32,38 +28,38 @@
     text-decoration: none;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    color: var(--btn-color);
+    color: var(--pagination-btn-color);
     border-radius: 5px;
-    border: 1px solid var(--btn-border-color);
-    background-color: var(--btn-bg-color);
+    border: 1px solid var(--pagination-btn-border-color);
+    background-color: var(--pagination-btn-bg-color);
     display: flex;
   }
 
   &__btn {
     &:hover {
-      background-color: var(--btn-hover-bg-color);
-      border-color: var(--btn-hover-border-color);
+      background-color: var(--pagination-btn-hover-bg-color);
+      border-color: var(--pagination-btn-hover-border-color);
     }
 
     &:focus-visible {
-      background-color: var(--btn-hover-bg-color);
-      border-color: var(--btn-hover-border-color);
-      box-shadow: var(--btn-focus-box-shadow);
+      background-color: var(--pagination-btn-hover-bg-color);
+      border-color: var(--pagination-btn-hover-border-color);
+      box-shadow: 0 0 0 0.25rem var(--pagination-btn-focus-box-shadow);
     }
 
     &:active {
-      background-color: var(--btn-active-bg-color);
-      border-color: var(--btn-active-border-color);
+      background-color: var(--pagination-btn-active-bg-color);
+      border-color: var(--pagination-btn-active-border-color);
     }
 
     &.pagination__btn_selected {
-      background-color: var(--btn-selected-bg-color);
-      border-color: var(--btn-selected-border-color);
+      background-color: var(--pagination-btn-selected-bg-color);
+      border-color: var(--pagination-btn-selected-border-color);
     }
 
     &.pagination__btn_disabled {
-      background-color: var(--btn-disabled-bg-color);
-      border-color: var(--btn-disabled-border-color);
+      background-color: var(--pagination-btn-disabled-bg-color);
+      border-color: var(--pagination-btn-disabled-border-color);
     }
   }
 }

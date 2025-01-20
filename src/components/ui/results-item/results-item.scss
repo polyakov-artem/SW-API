@@ -1,17 +1,23 @@
 .results-item {
+  --results-item-border-color: var(--g-results-item-border-color);
+  --results-item-link-color: var(--g-results-item-link-color);
+  --results-item-link-hover-color: var(--g-results-item-link-hover-color);
+}
+
+.results-item {
   display: flex;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--results-item-border-color);
   justify-content: space-between;
   gap: 20px;
 
   &__link {
-    color: black;
+    color: var(--results-item-link-color);
     text-decoration: none;
   }
 
   &__link:hover {
-    color: rgb(255, 81, 0);
+    color: var(--results-item-link-hover-color);
   }
 }

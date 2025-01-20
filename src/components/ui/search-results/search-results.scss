@@ -1,6 +1,11 @@
 .search-results {
+  --search-results-border-color: var(--g-search-results-border-color);
+  --search-results-loader-color: var(--g-search-results-loader-color);
+}
+
+.search-results {
   padding: 20px;
-  border: 1px solid var(--black);
+  border: 1px solid var(--search-results-border-color);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -12,7 +17,7 @@
 
   &__content {
     min-height: 300px;
-    color: #7c7c7c;
+    color: var(--search-results-loader-color);
   }
 
   &__loader {

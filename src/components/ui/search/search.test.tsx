@@ -1,103 +1,120 @@
-import { describe, vi } from 'vitest';
+import { describe, expect, vi } from 'vitest';
+import { screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Search from './search';
+import { configureStore } from '@reduxjs/toolkit';
+import { api } from '../../../store/api';
+import reducer from '../../../store/reducer';
 import { renderWithRouter } from '../../../utils/test/render-with-router';
-import ErrorBoundary from '../../shared/error-boundary/error-boundary';
 import { PUBLIC_PATH, selectOptions } from '../../../constants/constants';
-import { SwCategory } from '../../../enums/enums';
 import PropsComponent, { PropsComponentProps } from '../../../../tests/components/props-component';
+import { SwCategory } from '../../../enums/enums';
 import { assertAbsence, assertExistance, createGetter } from '../../../../tests/utils/test-utils';
-import { screen, waitFor } from '@testing-library/react';
-import { getLoadingState } from '../../../utils/load-data';
+import { addNetworkError } from '../../../../tests/msw/msw-utils';
+import { server } from '../../../../tests/msw/server';
 
-const category = SwCategory.films;
-const search = 'a';
-const page = '1';
-const itemId = '1';
-
-const routeWithoutItemId = `${PUBLIC_PATH}${category}/?search=${search}&page=${page}`;
-const routeWithInvalidPage = `${PUBLIC_PATH}${category}/?search=${search}&page=-1`;
-const routeWithItemId = `${PUBLIC_PATH}${category}/${itemId}/?search=${search}&page=${page}`;
 const searchHeaderTestId = 'search-header';
 const searchResultsTestId = 'search-results';
+const outletComponentTestId = 'outlet-component';
+
+const getSearchHeader = () => screen.getByTestId(searchHeaderTestId);
+const getSearchResults = () => screen.getByTestId(searchResultsTestId);
+const getOutletComponent = () => screen.getByTestId(outletComponentTestId);
+const getSearch = createGetter('search');
 
 vi.mock('../search-header/search-header', () => ({
   default: (props: PropsComponentProps) => (
     <PropsComponent testId={searchHeaderTestId} {...props} />
   ),
 }));
-
 vi.mock('../search-results/search-results', () => ({
   default: (props: PropsComponentProps) => (
     <PropsComponent testId={searchResultsTestId} {...props} />
   ),
 }));
 
-const renderSearch = (route: string) => {
-  return renderWithRouter(
-    <>
-      <Routes>
-        <Route
-          path={`${PUBLIC_PATH}:category/`}
-          element={
-            <ErrorBoundary>
-              <Search />
-            </ErrorBoundary>
-          }>
-          <Route path=":itemId" element={<div>Details component</div>} />
-        </Route>
-        <Route path={`${PUBLIC_PATH}not-found-page`} element={<div>not found page</div>} />
-      </Routes>
-    </>,
-    {
-      route,
-    }
-  );
+const renderSearch = (routeWithItemId: boolean = false) => {
+  const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+  });
+
+  const path = `${PUBLIC_PATH}${SwCategory.films}/`;
+  const pathWithItemId = `${path}1`;
+
+  return {
+    store,
+    ...renderWithRouter(
+      <Provider store={store}>
+        <Routes>
+          <Route path={`${path}`} element={<Search />}>
+            <Route
+              path=":itemId"
+              element={<div data-testid={outletComponentTestId}>Outlet component</div>}
+            />
+          </Route>
+        </Routes>
+      </Provider>,
+      { route: routeWithItemId ? pathWithItemId : path }
+    ),
+  };
 };
 
-const getSearch = createGetter('search');
-const getSearchHeader = () => screen.getByTestId(searchHeaderTestId);
-const getSearchResults = () => screen.getByTestId(searchResultsTestId);
-const getOutletComponent = () => screen.getByText(/Details component/i);
+describe('Search', () => {
+  describe('when the route is without itemId', () => {
+    test(`should render inner components and pass correct props, should not render OutletComponent, not add class 'search_has-details'`, () => {
+      renderSearch();
 
-describe('when the route is with item id', () => {
-  test('should render correctly, pass all props to child components', () => {
-    renderSearch(routeWithoutItemId);
+      assertExistance(getSearchHeader, getSearchResults);
+      assertAbsence(getOutletComponent);
 
-    assertExistance(getSearch, getSearchHeader, getSearchResults);
-    assertAbsence(getOutletComponent);
-    expect(getSearch()).toHaveClass('search container');
+      const expectedSearchHeaderProps = {
+        className: 'search__search-header',
+        options: selectOptions,
+        initialCategory: SwCategory.films,
+        initialSearch: '',
+      };
 
-    const expectedSearchHeaderProps = {
-      className: 'search__search-header',
-      options: selectOptions,
-      initialCategory: category,
-      initialSearch: search,
-    };
-
-    const expectedSearchResultsProps = {
-      categoryLoader: getLoadingState(),
-      searchQuery: { category, search, page },
-    };
-
-    expect(getSearchHeader()).toHaveTextContent(JSON.stringify(expectedSearchHeaderProps));
-    expect(getSearchResults()).toHaveTextContent(JSON.stringify(expectedSearchResultsProps));
+      expect(getSearchHeader()).toHaveTextContent(JSON.stringify(expectedSearchHeaderProps));
+      expect(getSearch().classList).not.toContain('search_has-details');
+    });
   });
-});
 
-describe('when the route is with item id', () => {
-  test('should render component with correct classes, should render component inside Outlet', () => {
-    renderSearch(routeWithItemId);
+  describe('when the route is with item id', () => {
+    test('should render component inside Outlet and add class to Search component', () => {
+      renderSearch(true);
 
-    assertExistance(getOutletComponent);
-    expect(getSearch()).toHaveClass('search container search_has-details');
+      assertExistance(getOutletComponent);
+      expect(getSearch().classList).toContain('search_has-details');
+    });
   });
-});
 
-describe('when categoryLoader.error === NOT_FOUND_MESSAGE', () => {
-  test('should throw an error (caught in ErrorBoundary and redirected to page 404)', async () => {
-    renderSearch(routeWithInvalidPage);
+  describe('when the data download started', () => {
+    test(`should dispatch 'itemsLoadingStarted' action`, () => {
+      const { store } = renderSearch();
 
-    await waitFor(() => expect(screen.getByText(/not found page/i)).toBeInTheDocument());
+      const itemsLoaderState = store.getState().itemsLoader;
+      expect(itemsLoaderState.isLoading).toBe(true);
+    });
+  });
+
+  describe('the data download fails', () => {
+    test(`should dispatch 'itemsLoadingFailed' action`, async () => {
+      addNetworkError(server);
+
+      const { store } = renderSearch();
+
+      await waitFor(() => expect(store.getState().itemsLoader.isError).toBe(true));
+      expect(store.getState().itemsLoader.error).not.toBe(null);
+    });
+  });
+
+  describe('when the data download completes successfully', () => {
+    test(`should dispatch 'itemsLoadingFinished' action`, async () => {
+      const { store } = renderSearch();
+
+      await waitFor(() => expect(store.getState().itemsLoader.data).not.toBe(null));
+    });
   });
 });

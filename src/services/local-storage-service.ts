@@ -3,6 +3,7 @@ import { SwCategory } from '../enums/enums';
 export type TStoredData = {
   search: string;
   category: SwCategory;
+  theme: string;
 };
 
 export class LocalStorageService<TData> {

@@ -45,4 +45,12 @@ body {
     max-width: var(--g-container-max-width);
     padding: 0 40px;
   }
+
+  &__header-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--g-block-border-color-1);
+    border-radius: 5px;
+    padding: 10px;
+  }
 }
